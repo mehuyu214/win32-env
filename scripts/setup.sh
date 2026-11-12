@@ -34,7 +34,7 @@ need() { # $1=base $2=human label
 extract() { # $1=base $2=dest $3=strip-components(0/1 via tar transform dir name $4)
   echo "extracting $1 -> $2"
   mkdir -p "$2"
-  tar -xJf "archives/$1.tar.xz" -C "$2" ${4:+--strip-components=1}
+  tar --no-same-owner -xJf "archives/$1.tar.xz" -C "$2" ${4:+--strip-components=1}
 }
 
 if [ "$SYSPKG" = 1 ]; then
@@ -60,8 +60,8 @@ extract wine-11.21-x86 wine32 0
 extract wineprefix32 . 0
 mkdir -p wow64
 cp archives/wine-11.21-amd64-wow64.tar.xz archives/wine-11.21-staging-amd64-wow64.tar.xz wow64/
-tar -xJf wow64/wine-11.21-amd64-wow64.tar.xz -C wow64
-tar -xJf wow64/wine-11.21-staging-amd64-wow64.tar.xz -C wow64
+tar --no-same-owner -xJf wow64/wine-11.21-amd64-wow64.tar.xz -C wow64
+tar --no-same-owner -xJf wow64/wine-11.21-staging-amd64-wow64.tar.xz -C wow64
 
 echo "== building q32sup from source =="
 mkdir -p qemu10/wrap
