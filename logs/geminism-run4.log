@@ -1,0 +1,309 @@
+0098:err:wgl:egl_init Failed to load libEGL.so.1: libEGL.so.1: cannot open shared object file: No such file or directory
+011c:err:wgl:egl_init Failed to load libEGL.so.1: libEGL.so.1: cannot open shared object file: No such file or directory
+0130:fixme:win:create_window_handle DPI context 0x22 not implemented
+0130:fixme:combase:RoSetErrorReportingFlags (00000004): stub
+0130:fixme:combase:RoGetActivationFactory (L"Windows.System.DispatcherQueue", {00000035-0000-0000-c000-000000000046}, 000000000010FA50): semi-stub
+0130:err:combase:RoGetActivationFactory Failed to find library for L"Windows.System.DispatcherQueue"
+0130:fixme:ntdll:NtQuerySystemInformation info_class SYSTEM_PERFORMANCE_INFORMATION
+0130:fixme:win:create_window_handle DPI context 0x22 not implemented
+0130:fixme:win:create_window_handle DPI context 0x22 not implemented
+0130:err:wgl:egl_init Failed to load libEGL.so.1: libEGL.so.1: cannot open shared object file: No such file or directory
+0130:fixme:d3d:wined3d_guess_card No card selector available for card vendor 0000 (using GL_RENDERER "llvmpipe (LLVM 20.1.2, 256 bits)").
+0130:fixme:dxgi:DXGID3D10CreateDevice Ignoring flags 0x20.
+0130:fixme:win:create_window_handle DPI context 0x22 not implemented
+01ac:fixme:wgl:win32u_context_create Unknown WGL_CONTEXT_FLAGS_ARB 0x1
+0130:fixme:win:create_window_handle DPI context 0x22 not implemented
+0130:fixme:d3d:wined3d_guess_card No card selector available for card vendor 0000 (using GL_RENDERER "llvmpipe (LLVM 20.1.2, 256 bits)").
+0130:fixme:wbemprox:client_security_SetBlanket 00006FFFF9B8B010, 000000006178AEE0, 10, 0, (null), 3, 3, 0000000000000000, 0
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Returning fake Options support data.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 29, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 61, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 49, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 28, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 63, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 51, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 31, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 62, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 50, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 30, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 64, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 52, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 32, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 56, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 35, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 11, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 58, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 37, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 13, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 57, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 36, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 12, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 59, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 38, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 14, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 42, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 17, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 7, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 3, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 43, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 18, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 8, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 4, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 54, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 34, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 10, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 41, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 16, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 6, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 2, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 61, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 65, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 56, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 91, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 87, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 115, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 85, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 86, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 67, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 26, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 24, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 25, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 89, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 29, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 28, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 2, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 55, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 45, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 40, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 20, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 62, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 72, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 71, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 75, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 74, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 78, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 77, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 80, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 81, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 83, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 84, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 95, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 96, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 99, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 98, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 107, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 45, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 56, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFormatSupport iface 0000000062E33580, format 107, format_support 000000000010F368 partial-stub!
+0130:fixme:d3d:wined3d_check_device_multisample_type multisample_type 32 not handled yet.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Unhandled feature 0x3.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Returning fake Options support data.
+0130:fixme:dxgi:dxgi_factory_IsWindowedStereoEnabled iface 0000000062CD3AB0 stub!
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Returning fake Options1 support data.
+0130:fixme:d3d11:d3d11_device_CheckFeatureSupport Returning fake threading support data.
+ALSA lib confmisc.c:855:(parse_card) cannot find card '0'
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_card_inum returned error: No such file or directory
+ALSA lib confmisc.c:422:(snd_func_concat) error evaluating strings
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_concat returned error: No such file or directory
+ALSA lib confmisc.c:1342:(snd_func_refer) error evaluating name
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5731:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib pcm.c:2721:(snd_pcm_open_noupdate) Unknown PCM default
+ALSA lib confmisc.c:855:(parse_card) cannot find card '0'
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_card_inum returned error: No such file or directory
+ALSA lib confmisc.c:422:(snd_func_concat) error evaluating strings
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_concat returned error: No such file or directory
+ALSA lib confmisc.c:1342:(snd_func_refer) error evaluating name
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5731:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib pcm.c:2721:(snd_pcm_open_noupdate) Unknown PCM default
+01b8:fixme:kernelbase:AppPolicyGetThreadInitializationType FFFFFFFFFFFFFFFA, 0000000066BFFF50
+0130:fixme:dxgi:DXGID3D10CreateDevice Ignoring flags 0x820.
+0130:fixme:system:NtUserGetDisplayConfigBufferSizes only returning active paths
+0130:fixme:system:NtUserQueryDisplayConfig only returning active paths
+0130:fixme:system:NtUserQueryDisplayConfig setting toplogyid to DISPLAYCONFIG_TOPOLOGY_INTERNAL
+0130:fixme:win:create_window_handle DPI context 0x22 not implemented
+0130:fixme:d3d:wined3d_guess_card No card selector available for card vendor 0000 (using GL_RENDERER "llvmpipe (LLVM 20.1.2, 256 bits)").
+0130:fixme:dxgi:dxgi_output_GetDisplayModeList iface 0000000066F6FC70, format DXGI_FORMAT_R8G8B8A8_UNORM, flags 0, mode_count 000000000010F630, modes 0000000000000000 partial stub!
+0130:fixme:dxgi:dxgi_output_GetDisplayModeList iface 0000000066F6FC70, format DXGI_FORMAT_R8G8B8A8_UNORM, flags 0, mode_count 000000000010F630, modes 0000000030060010 partial stub!
+0130:fixme:dxgi:dxgi_output_GetDesc1 iface 0000000066F6FBB0, desc 000000000010F490 semi-stub!
+0130:fixme:dxgi:wined3d_swapchain_flags_from_dxgi Unhandled flags 0x800.
+0130:fixme:d3d:wined3d_swapchain_init Unimplemented swap effect 0x3.
+0130:fixme:dxgi:d3d11_swapchain_GetDesc Ignoring ScanlineOrdering and Scaling.
+0130:fixme:dxgi:d3d11_swapchain_ResizeBuffers Ignoring flags 0x800.
+0130:fixme:dxgi:wined3d_swapchain_flags_from_dxgi Unhandled flags 0x800.
+01ac:fixme:d3d:wined3d_render_target_view_gl_cs_init Swapchain views not supported.
+0130:fixme:win:RegisterTouchWindow hwnd 0000000000010084, flags 0 stub!
+0130:fixme:dxgi:d3d11_swapchain_GetFrameStatistics iface 0000000063060690, stats 000000000010FB00 stub!
+01b0:fixme:d3d11:d3d_rasterizer_state_init Ignoring MultisampleEnable 0x1.
+01ac:fixme:d3d:state_linepattern_w Setting line patterns is not supported in OpenGL core contexts.
+0130:fixme:dxgi:d3d11_swapchain_GetFrameStatistics iface 0000000063060690, stats 000000000010FB00 stub!
+0130:fixme:dxgi:d3d11_swapchain_GetFrameStatistics iface 0000000063060690, stats 000000000010FB00 stub!
+0130:fixme:dxgi:d3d11_swapchain_GetFrameStatistics iface 0000000063060690, stats 000000000010FB00 stub!
+0130:fixme:dxgi:d3d11_swapchain_GetFrameStatistics iface 0000000063060690, stats 000000000010FB00 stub!
+0130:fixme:dxgi:d3d11_swapchain_GetFrameStatistics iface 0000000063060690, stats 000000000010FB00 stub!
+0130:fixme:dxgi:d3d11_swapchain_GetFrameStatistics iface 0000000063060690, stats 000000000010FB00 stub!
+0130:fixme:dxgi:d3d11_swapchain_GetFrameStatistics iface 0000000063060690, stats 000000000010FB00 stub!
+0130:fixme:dxgi:d3d11_swapchain_GetFrameStatistics iface 0000000063060690, stats 000000000010FB00 stub!
+0130:fixme:dxgi:d3d11_swapchain_GetFrameStatistics iface 0000000063060690, stats 000000000010FB00 stub!
+0130:fixme:dxgi:d3d11_swapchain_GetFrameStatistics iface 0000000063060690, stats 000000000010FB00 stub!
+0130:fixme:dxgi:d3d11_swapchain_GetFrameStatistics iface 0000000063060690, stats 000000000010F8F0 stub!
+0130:fixme:dxgi:dxgi_output_GetDesc1 iface 0000000067B49BB0, desc 000000000010F2F0 semi-stub!
+0130:fixme:dxgi:d3d11_swapchain_GetDesc Ignoring ScanlineOrdering and Scaling.
+0130:fixme:dxgi:d3d11_swapchain_ResizeBuffers Ignoring flags 0x800.
+0130:fixme:dxgi:wined3d_swapchain_flags_from_dxgi Unhandled flags 0x800.
+01ac:fixme:d3d:wined3d_render_target_view_gl_cs_init Swapchain views not supported.
+0130:fixme:dxgi:d3d11_swapchain_GetFrameStatistics iface 0000000063060690, stats 000000000010F8C0 stub!
+0130:fixme:dxgi:d3d11_swapchain_GetFrameStatistics iface 0000000063060690, stats 000000000010F8C0 stub!

@@ -1,0 +1,268 @@
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/../../bin/wineserver -> /home/hatch/workspace/vn-trials/qemu10/wrap/w6447317766147935452.sh
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+002c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\wineboot.exe" at 00400000: builtin
+002c:trace:loaddll:build_ntdll_module Loaded L"C:\\windows\\system32\\ntdll.dll" at 7FEF0000: builtin
+002c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\kernelbase.dll" at 7FB90000: builtin
+002c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\kernel32.dll" at 7FE80000: builtin
+002c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\msvcrt.dll" at 7FA50000: builtin
+002c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\ucrtbase.dll" at 7F900000: builtin
+002c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\sechost.dll" at 7FA20000: builtin
+002c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\advapi32.dll" at 7FB40000: builtin
+002c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\cryptbase.dll" at 7F850000: builtin
+002c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 7F860000: builtin
+002c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\ws2_32.dll" at 7F820000: builtin
+002c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\dnsapi.dll" at 7F800000: builtin
+002c:err:wineboot:process_run_key Error running cmd L"C:\\windows\\system32\\winemenubuilder.exe -a -r" (2).
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+0034:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\services.exe" at 00400000: builtin
+0034:trace:loaddll:build_ntdll_module Loaded L"C:\\windows\\system32\\ntdll.dll" at 7FEF0000: builtin
+0034:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\kernelbase.dll" at 7FB90000: builtin
+0034:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\kernel32.dll" at 7FE80000: builtin
+0034:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\msvcrt.dll" at 7FA50000: builtin
+0034:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\ucrtbase.dll" at 7F900000: builtin
+0034:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\sechost.dll" at 7FA20000: builtin
+0034:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\advapi32.dll" at 7FB40000: builtin
+0034:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\cryptbase.dll" at 7F850000: builtin
+0034:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 7F860000: builtin
+0034:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\cfgmgr32.dll" at 7F780000: builtin
+0034:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\setupapi.dll" at 7F7C0000: builtin
+0034:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\userenv.dll" at 7F770000: builtin
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+0040:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\winedevice.exe" at 00400000: builtin
+0040:trace:loaddll:build_ntdll_module Loaded L"C:\\windows\\system32\\ntdll.dll" at 7FEF0000: builtin
+0040:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\kernelbase.dll" at 7FB90000: builtin
+0040:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\kernel32.dll" at 7FE80000: builtin
+0040:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\msvcrt.dll" at 7FA50000: builtin
+0040:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\ucrtbase.dll" at 7F900000: builtin
+0040:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\sechost.dll" at 7FA20000: builtin
+0040:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\advapi32.dll" at 7FB40000: builtin
+0040:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\cryptbase.dll" at 7F870000: builtin
+0040:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\hal.dll" at 7F860000: builtin
+0040:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\ntoskrnl.exe" at 7F880000: builtin
+0040:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 7F7C0000: builtin
+004c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\drivers\\mountmgr.sys" at 7F7A0000: builtin
+004c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\cfgmgr32.dll" at 7F6D0000: builtin
+004c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\setupapi.dll" at 7F710000: builtin
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+0064:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\plugplay.exe" at 00400000: builtin
+0064:trace:loaddll:build_ntdll_module Loaded L"C:\\windows\\system32\\ntdll.dll" at 7FEF0000: builtin
+0064:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\kernelbase.dll" at 7FB90000: builtin
+0064:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\kernel32.dll" at 7FE80000: builtin
+0064:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\msvcrt.dll" at 7FA50000: builtin
+0064:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\ucrtbase.dll" at 7F900000: builtin
+0064:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\sechost.dll" at 7FA20000: builtin
+0064:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\advapi32.dll" at 7FB40000: builtin
+0064:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\cryptbase.dll" at 7F850000: builtin
+0064:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 7F860000: builtin
+0064:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\win32u.dll" at 7F550000: builtin
+0064:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\gdi32.dll" at 7F590000: builtin
+0064:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\user32.dll" at 7F640000: builtin
+Wine cannot find the FreeType font library.  To enable Wine to
+use TrueType fonts please install a version of FreeType greater than
+or equal to 2.0.5.
+http://www.freetype.org
+0064:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\imm32.dll" at 7F520000: builtin
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+007c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\svchost.exe" at 00400000: builtin
+007c:trace:loaddll:build_ntdll_module Loaded L"C:\\windows\\system32\\ntdll.dll" at 7FEF0000: builtin
+007c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\kernelbase.dll" at 7FB90000: builtin
+007c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\kernel32.dll" at 7FE80000: builtin
+007c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\msvcrt.dll" at 7FA50000: builtin
+007c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\ucrtbase.dll" at 7F900000: builtin
+007c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\sechost.dll" at 7FA20000: builtin
+007c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\advapi32.dll" at 7FB40000: builtin
+007c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\wevtsvc.dll" at 7F8F0000: builtin
+007c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\cryptbase.dll" at 7F840000: builtin
+007c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 7F850000: builtin
+004c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\drivers\\nsiproxy.sys" at 7F6C0000: builtin
+004c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\dnsapi.dll" at 7F640000: builtin
+004c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\nsi.dll" at 7F630000: builtin
+004c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\ws2_32.dll" at 7F600000: builtin
+004c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\iphlpapi.dll" at 7F660000: builtin
+004c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\drivers\\ndis.sys" at 7F6A0000: builtin
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+0094:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\winedevice.exe" at 00400000: builtin
+0094:trace:loaddll:build_ntdll_module Loaded L"C:\\windows\\system32\\ntdll.dll" at 7FEF0000: builtin
+0094:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\kernelbase.dll" at 7FB90000: builtin
+0094:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\kernel32.dll" at 7FE80000: builtin
+0094:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\msvcrt.dll" at 7FA50000: builtin
+0094:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\ucrtbase.dll" at 7F900000: builtin
+0094:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\sechost.dll" at 7FA20000: builtin
+0094:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\advapi32.dll" at 7FB40000: builtin
+0094:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\cryptbase.dll" at 7F870000: builtin
+0094:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\hal.dll" at 7F860000: builtin
+0094:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\ntoskrnl.exe" at 7F880000: builtin
+0094:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 7F7C0000: builtin
+009c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\drivers\\hidparse.sys" at 7F780000: builtin
+009c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\drivers\\winebus.sys" at 7F7A0000: builtin
+009c:err:ntoskrnl:ZwLoadDriver failed to create driver L"\\Registry\\Machine\\System\\CurrentControlSet\\Services\\winebus": c0000135
+0034:fixme:service:scmdatabase_autostart_services Auto-start service L"winebus" failed to start: 126
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+00b4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\winedevice.exe" at 00400000: builtin
+00b4:trace:loaddll:build_ntdll_module Loaded L"C:\\windows\\system32\\ntdll.dll" at 7FEF0000: builtin
+00b4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\kernelbase.dll" at 7FB90000: builtin
+00b4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\kernel32.dll" at 7FE80000: builtin
+00b4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\msvcrt.dll" at 7FA50000: builtin
+00b4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\ucrtbase.dll" at 7F900000: builtin
+00b4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\sechost.dll" at 7FA20000: builtin
+00b4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\advapi32.dll" at 7FB40000: builtin
+00b4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\cryptbase.dll" at 7F870000: builtin
+00b4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\hal.dll" at 7F860000: builtin
+00b4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\ntoskrnl.exe" at 7F880000: builtin
+00b4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 7F7C0000: builtin
+00bc:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\drivers\\winebth.sys" at 7F7A0000: builtin
+00bc:err:ntoskrnl:ZwLoadDriver failed to create driver L"\\Registry\\Machine\\System\\CurrentControlSet\\Services\\winebth": c00000e5
+0034:fixme:service:scmdatabase_autostart_services Auto-start service L"winebth" failed to start: 1359
+00c4:err:seh:segv_handler Got unexpected trap -1
+00c4:err:virtual:virtual_setup_exception nested exception on signal stack addr 0x400557c6 stack 0xeff0d0
+002c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\win32u.dll" at 7F500000: builtin
+002c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\user32.dll" at 7F540000: builtin
+002c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\gdi32.dll" at 7F750000: builtin
+002c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\shcore.dll" at 7F480000: builtin
+002c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\shlwapi.dll" at 7F4A0000: builtin
+002c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\shell32.dll" at 1F660000: builtin
+Wine cannot find the FreeType font library.  To enable Wine to
+use TrueType fonts please install a version of FreeType greater than
+or equal to 2.0.5.
+http://www.freetype.org
+002c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\imm32.dll" at 7F450000: builtin
+002c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\combase.dll" at 7F310000: builtin
+002c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\coml2.dll" at 7F2F0000: builtin
+002c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\ole32.dll" at 7F370000: builtin
+002c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\mpr.dll" at 7F220000: builtin
+002c:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\wininet.dll" at 7F250000: builtin
+0024:trace:loaddll:build_module Loaded L"unix\\home\\hatch\\workspace\\vn-trials\\sanoba-game\\sanoba_trial.exe" at 00400000: native
+0024:trace:loaddll:build_ntdll_module Loaded L"C:\\windows\\system32\\ntdll.dll" at 7FEF0000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\kernelbase.dll" at 7FB90000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\kernel32.dll" at 7FE80000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\msvcrt.dll" at 7F840000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\ucrtbase.dll" at 7F6F0000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\sechost.dll" at 7F810000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\advapi32.dll" at 7F930000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\win32u.dll" at 7F600000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\gdi32.dll" at 7F640000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\USER32.dll" at 7F980000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\comctl32.dll" at 7F3A0000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\shcore.dll" at 7F320000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\shlwapi.dll" at 7F340000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\shell32.dll" at 67660000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\COMDLG32.dll" at 7F4F0000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\cryptbase.dll" at 7F130000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 7F140000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\combase.dll" at 7F1E0000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\coml2.dll" at 7F110000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\ole32.dll" at 7F240000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\msacm32.dll" at 7F010000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\WINMM.dll" at 7F040000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\VERSION.dll" at 7F000000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\MPR.dll" at 67630000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\IMM32.dll" at 67600000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\dbghelp.dll" at 67550000: builtin
+Wine cannot find the FreeType font library.  To enable Wine to
+use TrueType fonts please install a version of FreeType greater than
+or equal to 2.0.5.
+http://www.freetype.org
+00cc:fixme:ver:GetCurrentPackageId (0132FF40 00000000): stub
+00cc:fixme:ntdll:NtQuerySystemInformation info_class SYSTEM_PERFORMANCE_INFORMATION
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+00d4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\explorer.exe" at 00400000: builtin
+00d4:trace:loaddll:build_ntdll_module Loaded L"C:\\windows\\system32\\ntdll.dll" at 7FEF0000: builtin
+00d4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\kernelbase.dll" at 7FB90000: builtin
+00d4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\kernel32.dll" at 7FE80000: builtin
+00d4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\msvcrt.dll" at 7FA50000: builtin
+00d4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\ucrtbase.dll" at 7F900000: builtin
+00d4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\sechost.dll" at 7FA20000: builtin
+00d4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\advapi32.dll" at 7FB40000: builtin
+00d4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\win32u.dll" at 7F600000: builtin
+00d4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\user32.dll" at 7F640000: builtin
+00d4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\gdi32.dll" at 7F850000: builtin
+00d4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\cryptbase.dll" at 7F550000: builtin
+00d4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 7F560000: builtin
+Wine cannot find the FreeType font library.  To enable Wine to
+use TrueType fonts please install a version of FreeType greater than
+or equal to 2.0.5.
+http://www.freetype.org
+00d4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\imm32.dll" at 7F520000: builtin
+00d4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\winex11.drv" at 7F510000: builtin
+00d4:err:vulkan:vulkan_init_once Failed to load libvulkan.so.1
+00d4:err:wgl:egl_init Failed to find required extension EGL_KHR_client_get_all_proc_addresses
+00d4:err:wgl:X11DRV_WineGL_InitOpenglInfo  couldn't initialize OpenGL, expect problems
+00d4:err:wgl:internal_context_create Failed to create internal root context with attrs {format 13 major -1 minor -1 flags 0 profile 0x1 no_error 0}
+00d4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\uxtheme.dll" at 7F4D0000: builtin
+00d4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\shcore.dll" at 7F450000: builtin
+00d4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\shlwapi.dll" at 7F470000: builtin
+00d4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\shell32.dll" at 1F660000: builtin
+00d4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\combase.dll" at 7F310000: builtin
+00d4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\coml2.dll" at 7F2F0000: builtin
+00d4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\ole32.dll" at 7F370000: builtin
+00d4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\oleaut32.dll" at 7F1D0000: builtin
+00d4:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\actxprxy.dll" at 7F2B0000: builtin
+00d4:trace:seh:dispatch_exception code=6ba (RPC_S_SERVER_UNAVAILABLE) flags=0 addr=7FBECFA9
+00d4:trace:seh:dispatch_exception eip=7fbecfa9 esp=0033e348 ebp=0033e39c eflags=00000246
+00d4:trace:seh:dispatch_exception eax=0033e348 ebx=0033e9c4 ecx=00000000 edx=00000000
+00d4:trace:seh:dispatch_exception esi=7f34b888 edi=00000005 cs=0023 ds=002b es=002b fs=0033 gs=003b ss=002b
+00d4:trace:seh:call_seh_handlers calling handler at 7F5A70F0 code=6ba flags=0
+00d4:trace:seh:call_seh_handlers handler at 7F5A70F0 returned 1
+00d4:trace:seh:call_seh_handlers calling handler at 7F32B5D0 code=6ba flags=0
+00d4:trace:seh:__regs_RtlUnwind code=6ba flags=2
+00d4:trace:seh:__regs_RtlUnwind eip=7f314f2a esp=0033d8e4 ebp=0033d8ec eflags=00000206
+00d4:trace:seh:__regs_RtlUnwind eax=00000000 ebx=00000000 ecx=7f3406d0 edx=0033f114
+00d4:trace:seh:__regs_RtlUnwind esi=0033da08 edi=0033da08 cs=0023 ds=002b es=002b fs=0033 gs=003b ss=002b
+00d4:trace:seh:__regs_RtlUnwind calling handler at 7FF7B5F0 code=6ba flags=2
+00d4:trace:seh:__regs_RtlUnwind handler at 7FF7B5F0 returned 1
+00d4:trace:seh:__regs_RtlUnwind calling handler at 7F5A70F0 code=6ba flags=2
+00d4:trace:seh:__regs_RtlUnwind handler at 7F5A70F0 returned 1
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+00ec:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\rpcss.exe" at 00400000: builtin
+00ec:trace:loaddll:build_ntdll_module Loaded L"C:\\windows\\system32\\ntdll.dll" at 7FEF0000: builtin
+00ec:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\kernelbase.dll" at 7FB90000: builtin
+00ec:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\kernel32.dll" at 7FE80000: builtin
+00ec:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\msvcrt.dll" at 7FA50000: builtin
+00ec:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\ucrtbase.dll" at 7F900000: builtin
+00ec:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\sechost.dll" at 7FA20000: builtin
+00ec:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\advapi32.dll" at 7FB40000: builtin
+00ec:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\cryptbase.dll" at 7F850000: builtin
+00ec:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 7F860000: builtin
+0024:trace:loaddll:build_module Loaded L"c:\\windows\\system32\\winex11.drv" at 1FFF0000: builtin
+0024:trace:loaddll:build_module Loaded L"C:\\windows\\system32\\uxtheme.dll" at 1FFB0000: builtin
+0024:fixme:mpr:WNetGetUniversalNameW (L"unix\\home\\hatch\\workspace\\vn-trials\\sanoba-game\\savedata", 0x00000001, 00000000, 0023F854): stub
+0024:fixme:mpr:WNetGetUniversalNameW (L"unix\\home\\hatch\\workspace\\vn-trials\\sanoba-game\\savedata", 0x00000001, 00000000, 0023F7B0): stub
+0024:trace:seh:dispatch_exception code=e06d7363 (EXCEPTION_WINE_CXX_EXCEPTION) flags=1 addr=7FBECFA9
+0024:trace:seh:dispatch_exception  info[0]=19930520
+0024:trace:seh:dispatch_exception  info[1]=0023FBD8
+0024:trace:seh:dispatch_exception  info[2]=00742A68
+0024:trace:seh:dispatch_exception eip=7fbecfa9 esp=0023fb34 ebp=0023fb88 eflags=00000246
+0024:trace:seh:dispatch_exception eax=0023fb34 ebx=00742a68 ecx=0023fbb4 edx=0000000c
+0024:trace:seh:dispatch_exception esi=0023fc44 edi=00000000 cs=0023 ds=002b es=002b fs=0033 gs=003b ss=002b
+0024:trace:seh:call_seh_handlers calling handler at 0069A748 code=e06d7363 flags=1
+0024:trace:seh:call_seh_handlers handler at 0069A748 returned 1
+0024:trace:seh:call_seh_handlers calling handler at 00695188 code=e06d7363 flags=1
+0024:trace:seh:call_seh_handlers handler at 00695188 returned 1
+0024:trace:seh:call_seh_handlers calling handler at 00694269 code=e06d7363 flags=1
+0024:trace:seh:call_seh_handlers handler at 00694269 returned 1
+0024:trace:seh:call_seh_handlers calling handler at 00694499 code=e06d7363 flags=1
+0024:trace:seh:call_seh_handlers handler at 00694499 returned 1
+0024:trace:seh:call_seh_handlers calling handler at 006976A8 code=e06d7363 flags=1
+0024:trace:seh:call_seh_handlers handler at 006976A8 returned 1
+0024:trace:seh:call_seh_handlers calling handler at 0069398F code=e06d7363 flags=1
+0024:trace:seh:call_seh_handlers handler at 0069398F returned 1
+0024:trace:seh:call_seh_handlers calling handler at 00698CA4 code=e06d7363 flags=1
+0024:trace:seh:__regs_RtlUnwind code=e06d7363 flags=3
+0024:trace:seh:__regs_RtlUnwind eip=00637214 esp=0023f008 ebp=0023f01c eflags=00000246
+0024:trace:seh:__regs_RtlUnwind eax=00000000 ebx=0023fec0 ecx=00638883 edx=0023fbd8
+0024:trace:seh:__regs_RtlUnwind esi=0023f134 edi=0023fec0 cs=0023 ds=002b es=002b fs=0033 gs=003b ss=002b
+0024:trace:seh:__regs_RtlUnwind calling handler at 7FF7B5F0 code=e06d7363 flags=3
+0024:trace:seh:__regs_RtlUnwind handler at 7FF7B5F0 returned 1
+0024:trace:seh:__regs_RtlUnwind calling handler at 0069A748 code=e06d7363 flags=3
+0024:trace:seh:__regs_RtlUnwind handler at 0069A748 returned 1
+0024:trace:seh:__regs_RtlUnwind calling handler at 00695188 code=e06d7363 flags=3
+0024:trace:seh:__regs_RtlUnwind handler at 00695188 returned 1
+0024:trace:seh:__regs_RtlUnwind calling handler at 00694269 code=e06d7363 flags=3
+0024:trace:seh:__regs_RtlUnwind handler at 00694269 returned 1
+0024:trace:seh:__regs_RtlUnwind calling handler at 00694499 code=e06d7363 flags=3
+0024:trace:seh:__regs_RtlUnwind handler at 00694499 returned 1
+0024:trace:seh:__regs_RtlUnwind calling handler at 006976A8 code=e06d7363 flags=3
+0024:trace:seh:__regs_RtlUnwind handler at 006976A8 returned 1
+0024:trace:seh:__regs_RtlUnwind calling handler at 0069398F code=e06d7363 flags=3
+0024:trace:seh:__regs_RtlUnwind handler at 0069398F returned 1

@@ -1,0 +1,42 @@
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/../../bin/wineserver -> /home/hatch/workspace/vn-trials/qemu10/wrap/w6447317766147935452.sh
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+002c:err:wineboot:process_run_key Error running cmd L"C:\\windows\\system32\\winemenubuilder.exe -a -r" (2).
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+Wine cannot find the FreeType font library.  To enable Wine to
+use TrueType fonts please install a version of FreeType greater than
+or equal to 2.0.5.
+http://www.freetype.org
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+009c:err:ntoskrnl:ZwLoadDriver failed to create driver L"\\Registry\\Machine\\System\\CurrentControlSet\\Services\\winebus": c0000135
+0034:fixme:service:scmdatabase_autostart_services Auto-start service L"winebus" failed to start: 126
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+00bc:err:ntoskrnl:ZwLoadDriver failed to create driver L"\\Registry\\Machine\\System\\CurrentControlSet\\Services\\winebth": c00000e5
+0034:fixme:service:scmdatabase_autostart_services Auto-start service L"winebth" failed to start: 1359
+00c4:err:seh:segv_handler Got unexpected trap -1
+00c4:err:virtual:virtual_setup_exception nested exception on signal stack addr 0x400557c6 stack 0xeff0d0
+Wine cannot find the FreeType font library.  To enable Wine to
+use TrueType fonts please install a version of FreeType greater than
+or equal to 2.0.5.
+http://www.freetype.org
+Wine cannot find the FreeType font library.  To enable Wine to
+use TrueType fonts please install a version of FreeType greater than
+or equal to 2.0.5.
+http://www.freetype.org
+00cc:fixme:ver:GetCurrentPackageId (0132FF40 00000000): stub
+00cc:fixme:ntdll:NtQuerySystemInformation info_class SYSTEM_PERFORMANCE_INFORMATION
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+Wine cannot find the FreeType font library.  To enable Wine to
+use TrueType fonts please install a version of FreeType greater than
+or equal to 2.0.5.
+http://www.freetype.org
+00d4:err:vulkan:vulkan_init_once Failed to load libvulkan.so.1
+00d4:err:wgl:egl_init Failed to find required extension EGL_KHR_client_get_all_proc_addresses
+00d4:err:wgl:X11DRV_WineGL_InitOpenglInfo  couldn't initialize OpenGL, expect problems
+00d4:err:wgl:internal_context_create Failed to create internal root context with attrs {format 13 major -1 minor -1 flags 0 profile 0x1 no_error 0}
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+0024:fixme:mpr:WNetGetUniversalNameW (L"unix\\home\\hatch\\workspace\\vn-trials\\sanoba-real\\savedata", 0x00000001, 00000000, 0023F854): stub
+0024:fixme:mpr:WNetGetUniversalNameW (L"unix\\home\\hatch\\workspace\\vn-trials\\sanoba-real\\savedata", 0x00000001, 00000000, 0023F7B0): stub

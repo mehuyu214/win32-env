@@ -1,0 +1,19 @@
+# extracted trees (rebuild with scripts/setup.sh)
+/qemu10/usr/
+/qemu/usr/
+/qemu10/wrap/*
+!/qemu10/wrap/.keep
+/qemu10/q32sup
+/sysroot32/root/
+/wine32/wine-11.21-x86/
+/wineprefix32/
+/wow64/wine-11.21-amd64-wow64/
+/wow64/wine-11.21-staging-amd64-wow64/
+# assembled archives (committed as .part-* splits; setup.sh joins them)
+archives/wine-11.21-x86.tar.xz
+archives/wine-11.21-amd64-wow64.tar.xz
+archives/wine-11.21-staging-amd64-wow64.tar.xz
+archives/wineprefix32.tar.xz
+archives/wineprefix32-live-snapshot.tar.xz
+/dl-tmp/
+*.tmp

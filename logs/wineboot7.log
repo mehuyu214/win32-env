@@ -1,0 +1,106 @@
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+wine: created the configuration directory '/home/hatch/workspace/vn-trials/wineprefix32'
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/../../bin/wineserver -> /home/hatch/workspace/vn-trials/qemu10/wrap/w6447317766147935452.sh
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+002c:fixme:actctx:parse_depend_manifests Could not find dependent assembly L"Microsoft.Windows.Common-Controls" (6.0.0.0)
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+Wine cannot find the FreeType font library.  To enable Wine to
+use TrueType fonts please install a version of FreeType greater than
+or equal to 2.0.5.
+http://www.freetype.org
+Wine cannot find the FreeType font library.  To enable Wine to
+use TrueType fonts please install a version of FreeType greater than
+or equal to 2.0.5.
+http://www.freetype.org
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+004c:fixme:actctx:parse_depend_manifests Could not find dependent assembly L"Microsoft.Windows.Common-Controls" (6.0.0.0)
+0054:fixme:actctx:parse_depend_manifests Could not find dependent assembly L"Microsoft.Windows.Common-Controls" (6.0.0.0)
+Wine cannot find the FreeType font library.  To enable Wine to
+use TrueType fonts please install a version of FreeType greater than
+or equal to 2.0.5.
+http://www.freetype.org
+Wine cannot find the FreeType font library.  To enable Wine to
+use TrueType fonts please install a version of FreeType greater than
+or equal to 2.0.5.
+http://www.freetype.org
+0054:err:vulkan:vulkan_init_once Failed to load libvulkan.so.1
+0054:err:wgl:egl_init Failed to load libEGL.so.1: libEGL.so.1: cannot open shared object file: No such file or directory
+0054:err:wgl:internal_context_create Failed to create internal root context with attrs {format 13 major -1 minor -1 flags 0 profile 0x1 no_error 0}
+0054:err:winediag:nodrv_CreateWindow Application tried to create a window, but no driver could be loaded.
+0054:err:winediag:nodrv_CreateWindow L"The explorer process failed to start."
+0054:err:systray:initialize_systray Could not create tray window
+0054:err:ole:StdMarshalImpl_MarshalInterface Failed to create ifstub, hr 0x80004002
+0054:err:ole:CoMarshalInterface Failed to marshal the interface {6d5140c1-7436-11ce-8034-00aa006009fa}, hr 0x80004002
+0054:err:ole:apartment_get_local_server_stream Failed: 0x80004002
+004c:err:winediag:nodrv_CreateWindow Application tried to create a window, but no driver could be loaded.
+004c:err:winediag:nodrv_CreateWindow L"Make sure that your display server is running and that its variables are set."
+004c:err:ole:apartment_createwindowifneeded CreateWindow failed with error 3
+004c:err:ole:apartment_createwindowifneeded CreateWindow failed with error 0
+0044:err:winediag:nodrv_CreateWindow Application tried to create a window, but no driver could be loaded.
+0044:err:winediag:nodrv_CreateWindow L"Make sure that your display server is running and that its variables are set."
+004c:err:ole:apartment_createwindowifneeded CreateWindow failed with error 14007
+004c:err:ole:StdMarshalImpl_MarshalInterface Failed to create ifstub, hr 0x800736b7
+004c:err:ole:CoMarshalInterface Failed to marshal the interface {6d5140c1-7436-11ce-8034-00aa006009fa}, hr 0x800736b7
+004c:err:ole:apartment_get_local_server_stream Failed: 0x800736b7
+004c:err:ole:start_rpcss Failed to open RpcSs service
+002c:err:winediag:nodrv_CreateWindow Application tried to create a window, but no driver could be loaded.
+002c:err:winediag:nodrv_CreateWindow L"Make sure that your display server is running and that its variables are set."
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+Wine cannot find the FreeType font library.  To enable Wine to
+use TrueType fonts please install a version of FreeType greater than
+or equal to 2.0.5.
+http://www.freetype.org
+0094:err:winediag:nodrv_CreateWindow Application tried to create a window, but no driver could be loaded.
+0094:err:winediag:nodrv_CreateWindow L"Make sure that your display server is running and that its variables are set."
+0094:err:winediag:process_attach failed to load libgnutls, no support for pfx import/export
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+Wine cannot find the FreeType font library.  To enable Wine to
+use TrueType fonts please install a version of FreeType greater than
+or equal to 2.0.5.
+http://www.freetype.org
+009c:err:winediag:nodrv_CreateWindow Application tried to create a window, but no driver could be loaded.
+009c:err:winediag:nodrv_CreateWindow L"Make sure that your display server is running and that its variables are set."
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+Wine cannot find the FreeType font library.  To enable Wine to
+use TrueType fonts please install a version of FreeType greater than
+or equal to 2.0.5.
+http://www.freetype.org
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+Wine cannot find the FreeType font library.  To enable Wine to
+use TrueType fonts please install a version of FreeType greater than
+or equal to 2.0.5.
+http://www.freetype.org
+002c:err:setupapi:do_file_copyW Unsupported style(s) 0x10
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+00ec:err:ntoskrnl:ZwLoadDriver failed to create driver L"\\Registry\\Machine\\System\\CurrentControlSet\\Services\\winebth": c00000e5
+002c:err:setupapi:SetupDiInstallDevice Failed to start service L"winebth" for device L"ROOT\\WINE\\winebth", error 1359.
+002c:err:setupapi:SetupDiInstallDevice Failed to control service L"winebth" for device L"ROOT\\WINE\\winebth", error 1062.
+002c:err:setupapi:do_file_copyW Unsupported style(s) 0x10
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+010c:err:ntoskrnl:ZwLoadDriver failed to create driver L"\\Registry\\Machine\\System\\CurrentControlSet\\Services\\winebus": c0000135
+002c:err:setupapi:SetupDiInstallDevice Failed to start service L"winebus" for device L"ROOT\\WINE\\winebus", error 126.
+002c:err:setupapi:SetupDiInstallDevice Failed to control service L"winebus" for device L"ROOT\\WINE\\winebus", error 1062.
+0110:err:seh:segv_handler Got unexpected trap -1
+0110:err:virtual:virtual_setup_exception nested exception on signal stack addr 0x4003e7c6 stack 0xbef0d0
+002c:err:setupapi:do_file_copyW Unsupported style(s) 0x10
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+0124:err:wineusb:DriverEntry Failed to initialize Unix library, status 0xc0000135.
+0124:err:ntoskrnl:ZwLoadDriver failed to create driver L"\\Registry\\Machine\\System\\CurrentControlSet\\Services\\wineusb": c0000135
+002c:err:setupapi:SetupDiInstallDevice Failed to start service L"wineusb" for device L"ROOT\\WINE\\wineusb", error 126.
+002c:err:setupapi:SetupDiInstallDevice Failed to control service L"wineusb" for device L"ROOT\\WINE\\wineusb", error 1062.
+Wine cannot find the FreeType font library.  To enable Wine to
+use TrueType fonts please install a version of FreeType greater than
+or equal to 2.0.5.
+http://www.freetype.org
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+0144:err:wineboot:process_run_key Error running cmd L"C:\\windows\\system32\\winemenubuilder.exe -a -r" (2).
+[q32sup] execve /home/hatch/workspace/vn-trials/wine32/wine-11.21-x86/lib/wine/i386-unix/wine-preloader -> /home/hatch/workspace/vn-trials/qemu10/wrap/w3251695097899501468.sh
+Wine cannot find the FreeType font library.  To enable Wine to
+use TrueType fonts please install a version of FreeType greater than
+or equal to 2.0.5.
+http://www.freetype.org
