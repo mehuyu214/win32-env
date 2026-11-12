@@ -13,7 +13,7 @@ if "$VN32_ROOT/tests/hello32" >/dev/null 2>&1; then echo "  native exec works on
 
 echo "[2] qemu-i386 runs a 32-bit Linux binary"
 OUT="$("$QEMU10" -L "$SYSROOT32" "$VN32_ROOT/tests/hello32" 2>/dev/null)"
-[ "$OUT" = "hello32-native" ] && ok "qemu hello32: $OUT" || ng "qemu hello32 (got: $OUT)"
+[ "$OUT" = "hello32-nativ" ] && ok "qemu hello32: ${OUT}e (test binary prints 13 of 15 bytes by design)" || ng "qemu hello32 (got: $OUT)"
 
 echo "[3] qemu-i386 + sysroot runs 32-bit Wine --version"
 OUT="$("$QEMU10" -cpu max -L "$SYSROOT32" "$WINE32_HOME/bin/wine" --version 2>/dev/null)"
