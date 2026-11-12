@@ -6,6 +6,23 @@
 
 ---
 
+## まずここから / 現在の状態（2026-11-13）
+
+**これは何か**：GPU のない共有 VM の上で、**無改造の 32bit Windows ゲーム**を動かすための汎用環境。構成は qemu-i386（ユーザーモード TCG 翻訳）＋ 自作監督プロセス q32sup ＋ 32bit Wine 11.21 ＋ i386 Mesa sysroot（llvmpipe ソフトウェア描画）。
+
+**到達点**：
+
+- 『サノバウィッチ』体験版が**無改造のままプレイ可能**（タイトル画面表示、本編 Chapter 1-1 への進行、入力、セーブ系画面まで確認）。レンダリングの真因は sysroot 側の不足ライブラリ 2 本（`libpciaccess.so.0` / `libtinfo.so.6`）で、環境側修正のみで解決した
+- **音声もリアルタイムでクリーンに再生・録音できる**（PulseAudio 経由、音声供給比率 **1.000**＝無音ギャップ 0・アンダーラン 0 を複数回再現）。ただし条件付き：**VM が静かであること**。他ジョブと CPU を取り合うと供給比率は 0.83〜0.89 まで落ちる（実測）。測定・録画の前には [tools/quiet.sh](tools/quiet.sh) で管理下の定期ジョブを一時停止する「静音プロトコル」を適用すること。性能調査の全記録は [docs/PERFORMANCE.md](docs/PERFORMANCE.md)
+- ゲームの起動手順は [docs/GAME-RUNBOOK.md](docs/GAME-RUNBOOK.md) と `scripts/games/`（ゲームごとに新規プレフィックス、日本語ロケール、絶対パス `Z:\` で exe を起動）
+- 音声調査の記録：方法と失敗の経緯は [docs/AUDIO-INVESTIGATION.md](docs/AUDIO-INVESTIGATION.md)、実測の主記録（スナップショット）は [docs/AUDIO-RESULTS.md](docs/AUDIO-RESULTS.md)
+- タイトル別の互換性は [docs/GAME-COMPAT.md](docs/GAME-COMPAT.md)：『喫茶ステラと死神の蝶』は起動〜本編まで可、『サクラノ刻』は白画面で停止、『RE:D Cherish!』と『まじこい』は共通とみられるセグフォールトで未解決
+- 研究トラック（Level-3）：描画を 64bit ホスト側へ移すアーキテクチャ検討は [docs/ARCHITECTURE-OPTIMIZATION.md](docs/ARCHITECTURE-OPTIMIZATION.md)。現行構成は全段 32bit が TCG 翻訳越しに走る（二重 JIT 税が性能の本命容疑者）。第一候補は virgl/vtest（PoC 計画と棄却基準まで記載済み、未実施）
+
+**絶対ルール**：**ゲーム本体は一切改造しない**（EXE・XP3・アーカイブ・スクリプトに触らない）。修正はすべて環境側（QEMU / Wine / q32sup / Mesa / ライブラリ / 仮想デバイス）で行うこと。
+
+---
+
 ## これは何か / なぜ普通の方法では動かないのか
 
 対象 VM（Ubuntu 24.04、共有 1.5 コア級のサンドボックス）では、カーネル層で **32bit コードセグメントへの遷移が無効化** されています（実測：静的リンクの 32bit Linux ELF が即セグフォルト、exit 139）。そのため、
