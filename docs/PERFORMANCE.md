@@ -80,8 +80,20 @@ run (only load). Assessment: with n=1 and uncontrolled background fluctuation, t
 with run-to-run variance under a fluctuating background (the same mechanism that makes
 M4's later window cleaner also fits a passing load burst during M3). No mechanism by
 which adding x264 encoding would improve the game's audio production is known or
-evidenced. The deciding experiment is the alternating M3/M4 repeat under the VM quiet
-protocol (Phase 4 protocol runs: `cap-m4q*.raw`), which removes the background term.
+evidenced.
+
+**Deciding experiment (run 2026-11-13, quiet protocol active, one instance,
+interleaved windows):** M3 = 3/3 windows at delivery **1.000** (gaps 0, underrun Δ0,
+exact-dup 0); M4 = 3/3 full windows at **1.000** (same zeros; video 1200 frames per
+window; A/V start offset 0.002 s). Game CPU: M3 1178 ticks vs M4 1214–1248 ticks
+(excess ≈ known x11grab cost). With the background term removed the two conditions
+are **indistinguishable**. Verdict: the matrix-era M4>M3 ordering was variance of two
+contention-degraded windows, not an effect of recording. Two M4 attempts in this
+session were truncated-invalid by a harness race (a leftover driver script from the
+preceding session ran windows in parallel and the harnesses' shared `pkill`
+pattern killed each other's captures at 18.57 s / 39.51 s; captured content was
+clean) — disclosed in RESULTS.md §4. Session ages at the quiet windows were
+1–11 min: no session-age effect observed in that range.
 
 ## F2 — clockless capture (ALSA file plugin), gate v2 verdict: FAIL (closed)
 
@@ -100,6 +112,13 @@ principle (content is skipped/displaced, not merely padded).
 1. On a quiet VM (load ≲0.6, no competing heavy jobs), the base config delivers
    **1.000 with 0 gaps and 0 underruns** across six consecutive ladder runs and one
    diagnostic run; KK's ear test passed.
+1b. Under the VM quiet protocol (managed background jobs paused), the full
+   M4 condition (game + video + audio) also delivers **1.000 / 0 / 0**, reproduced
+   3/3 windows, with M3 identical (3/3) — the Policy B recording configuration is
+   validated. Quiet-protocol windows ran at 1-min load averages of 1.37–2.36
+   (mostly the game's own load plus runtime overhead); the operative change vs
+   the degraded matrix session is the absence of the managed background jobs,
+   not the load-average figure itself.
 2. Under contention, the same stack degrades to 0.39–0.68 (E-series) or 0.83–0.89
    (matrix) — the failure is a *production shortfall*: the guest cannot sustain
    realtime sample production when the host scheduler is busy; the sink pads with
@@ -124,9 +143,9 @@ principle (content is skipped/displaced, not merely padded).
   measurable via grabs; presents of identical frames are invisible to the method.
 - `-cpu` model sensitivity *in-game* (only `-cpu max` used; the python micro-bench
   is not the game).
-- Session-age effect (TCG translation-cache pressure over >10 min sessions) —
-  neither confirmed nor excluded; the one diagnostic that could decide it was
-  terminated mid-run.
+- Session-age effect (TCG translation-cache pressure over long sessions) — no
+  effect observed across windows at 1–11 min instance age in the quiet-protocol
+  runs; ages beyond ~15 min remain untested.
 
 ## Reference configuration (reproducible)
 
