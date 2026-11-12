@@ -132,5 +132,7 @@ WINEPREFIX=/path/to/new-prefix scripts/boot32.sh
 ## 関連リンク
 
 - 当日の作業記録（原典）: [docs/STATUS-original-2026-11-12.md](docs/STATUS-original-2026-11-12.md)
+- ゲーム実行レシピ: [docs/GAME-RUNBOOK.md](docs/GAME-RUNBOOK.md) / ゲーム互換性状況: [docs/GAME-COMPAT.md](docs/GAME-COMPAT.md)
+- 音声キャプチャのペーシング調査（delivery ratio 法・品質ゲート v2・最適化ラダー）: [docs/AUDIO-INVESTIGATION.md](docs/AUDIO-INVESTIGATION.md)。測定ツールは `tools/delivery_ratio.py`
 - 技術解説: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) / 試行錯誤の履歴: [docs/HISTORY.md](docs/HISTORY.md)
 - 部品目録: [docs/COMPONENTS.md](docs/COMPONENTS.md)
