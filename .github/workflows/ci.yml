@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  restore-and-verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install host build tools
+        run: sudo apt-get update && sudo apt-get install -y gcc xz-utils
+
+      - name: Syntax-check all shell scripts
+        run: |
+          fail=0
+          while IFS= read -r f; do
+            bash -n "$f" || fail=1
+          done < <(find scripts tools -name '*.sh' -type f)
+          exit $fail
+
+      - name: Restore the stack from the repo alone
+        run: scripts/setup.sh
+
+      - name: Verify stages 1-4
+        run: scripts/verify.sh --quick
+
+      # Stage 5 boots Wine through the supervisor; it is slow and can be
+      # flaky on shared runners, so it is reported but not gating (yet).
+      - name: Verify stage 5 (full, non-gating)
+        continue-on-error: true
+        run: scripts/verify.sh
