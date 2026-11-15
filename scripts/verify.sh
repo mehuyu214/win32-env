@@ -2,8 +2,14 @@
 # verify.sh — staged verification of the restored environment.
 #   --quick  : stages 1-4 only (seconds)
 #   (default): stages 1-5 (stage 5 boots Wine cmd under q32sup; allow several minutes on 1.5 cores)
+# Unknown options are an error (exit 2); they used to silently trigger the full run.
 set -uo pipefail
 . "$(dirname "$0")/env.sh"
+QUICK=0
+for a in "$@"; do case "$a" in
+  --quick) QUICK=1;;
+  *) echo "usage: verify.sh [--quick]" >&2; exit 2;;
+esac; done
 PASS=0; FAIL=0
 ok(){ echo "PASS: $1"; PASS=$((PASS+1)); }
 ng(){ echo "FAIL: $1"; FAIL=$((FAIL+1)); }
@@ -22,7 +28,7 @@ echo "$OUT" | grep -q "wine-11.21" && ok "wine version: $OUT" || ng "wine versio
 echo "[4] q32sup binary present and executable"
 [ -x "$Q32SUP" ] && ok "q32sup: $Q32SUP" || ng "q32sup missing — run scripts/setup.sh"
 
-if [ "${1:-}" != "--quick" ]; then
+if [ "$QUICK" = 0 ]; then
   echo "[5] q32sup end-to-end: wine cmd /c echo under supervision (slow; timeout 900s)"
   OUT="$(timeout 900 "$Q32SUP" "$QEMU10" -cpu max -L "$SYSROOT32" "$WINE32_HOME/bin/wine" cmd /c "echo Q32SUP_OK" 2>/tmp/q32-verify.err)"
   echo "$OUT" | grep -q "Q32SUP_OK" && ok "q32sup wine cmd: Q32SUP_OK" || { ng "q32sup wine cmd (see /tmp/q32-verify.err)"; }

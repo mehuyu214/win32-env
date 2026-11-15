@@ -15,6 +15,7 @@ libsensors5_ libdrm-amdgpu1_ libdrm-intel1_ libelf1t64_
 libatomic1_ libffi8_ libedit2_ libxml2_ libicu74_ liblzma5_
 python3.12-minimal_ libpython3.12-minimal_ libpython3.12-stdlib_ python3.12_
 libsqlite3-0_ libncursesw6_ libreadline8t64_ libssl3t64_
+libegl-mesa0_ libglx-mesa0_ libdrm2_ libxcb-glx0_
 "
 mkdir -p "$SYSROOT32"
 for pat in $DEBS; do
@@ -27,6 +28,19 @@ done
 [ -e "$SYSROOT32/lib" ] || ln -s usr/lib "$SYSROOT32/lib"
 [ -e "$SYSROOT32/bin" ] || ln -s usr/bin "$SYSROOT32/bin"
 ldconfig -r "$SYSROOT32" 2>/dev/null || true
+# ALSA -> PulseAudio plugin modules. libasound resolves its plugins from
+# the sysroot's alsa-lib dir (NOT via LD_LIBRARY_PATH), and no
+# libasound2-plugins .deb is vendored in sysroot32/debs/ — so install the
+# three pulse modules from the repo's vendored pa-libs (noble
+# libasound2-plugins 1.2.11). Without them, winealsa finds no usable
+# device and the alsa-pulse route is silent (reproduced 2026-11-16:
+# "Cannot open shared library libasound_module_conf_pulse.so").
+mkdir -p "$SYSROOT32/usr/lib/i386-linux-gnu/alsa-lib"
+for m in pcm_pulse ctl_pulse conf_pulse; do
+  cp -n "$VN32_ROOT/pa-libs/usr/lib/i386-linux-gnu/alsa-lib/libasound_module_${m}.so" \
+    "$SYSROOT32/usr/lib/i386-linux-gnu/alsa-lib/" \
+    && echo "installed libasound_module_${m}.so"
+done
 
 echo "=== dependency closure audit (every .so in the sysroot) ==="
 R="$SYSROOT32/usr/lib/i386-linux-gnu"
@@ -38,16 +52,26 @@ for so in "$R"/*.so.* "$R"/dri/*.so; do
   done
 done
 # Known-benign: libsystemd.so.0 (libdbus) may be reported; Wine tolerates it.
+# Also benign: libpulsecommon-16.1.so lives in $R/pulseaudio/ (a subdir), so
+# the top-level scan reports it missing — the loader finds it via the
+# libpulse RUNPATH; EGL probe passing is the real check.
 [ "$MISS" -eq 0 ] && echo "closure OK"
 
 echo "=== EGL probe (pure Linux, no Wine) ==="
 if [ -x "$SYSROOT32/usr/bin/python3.12" ]; then
-  DISPLAY="${DISPLAY:-:99}" \
+  PROBE_OUT="$(DISPLAY="${DISPLAY:-:99}" \
   __EGL_VENDOR_LIBRARY_DIRS="$SYSROOT32/usr/share/glvnd/egl_vendor.d" \
   "$QEMU10" -cpu max -L "$SYSROOT32" "$SYSROOT32/usr/bin/python3.12" \
-    "$VN32_ROOT/tools/eglprobe.py" 2>&1 | head -12
-  echo "PASS = client extensions non-empty incl. EGL_KHR_client_get_all_proc_addresses"
-  echo "       and eglInitialize OK on SURFACELESS and X11."
+    "$VN32_ROOT/tools/eglprobe.py" 2>&1)"
+  echo "$PROBE_OUT" | head -12
+  # The probe itself exits 0 even when EGL is dead — check its output.
+  if echo "$PROBE_OUT" | grep -q "EGL_KHR_client_get_all_proc_addresses" \
+     && echo "$PROBE_OUT" | grep -q "eglInitialize: 1"; then
+    echo "EGL PROBE PASS (client extensions non-empty, eglInitialize OK)"
+  else
+    echo "EGL PROBE FAIL (see output above)" >&2
+    exit 1
+  fi
 else
   echo "python3.12 not in sysroot; skip eglprobe"
 fi

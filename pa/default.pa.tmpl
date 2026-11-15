@@ -1,0 +1,6 @@
+.fail
+load-module module-native-protocol-unix socket=@ROOT@/pa/native auth-anonymous=1
+load-module module-native-protocol-tcp port=@PORT@ auth-anonymous=1 auth-ip-acl=127.0.0.1
+load-module module-null-sink sink_name=game rate=48000 format=float32le channels=2 sink_properties=device.description=GameSink
+load-module module-always-sink
+.nofail

@@ -17,3 +17,9 @@ archives/wineprefix32.tar.xz
 archives/wineprefix32-live-snapshot.tar.xz
 /dl-tmp/
 *.tmp
+/qemu10/noexec32.so
+
+# runtime/build artifacts (2026-11-16 fix round)
+/wineprefix-games/
+/.fontgen/
+/logs/pa.log

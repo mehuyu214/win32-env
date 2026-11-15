@@ -6,18 +6,30 @@
 
 ---
 
-## まずここから / 現在の状態（2026-11-13）
+## まずここから / 現在の状態（2026-11-16）
 
 **これは何か**：GPU のない共有 VM の上で、**無改造の 32bit Windows ゲーム**を動かすための汎用環境。構成は qemu-i386（ユーザーモード TCG 翻訳）＋ 自作監督プロセス q32sup ＋ 32bit Wine 11.21 ＋ i386 Mesa sysroot（llvmpipe ソフトウェア描画）。
 
 **到達点**：
 
 - 『サノバウィッチ』体験版が**無改造のままプレイ可能**（タイトル画面表示、本編 Chapter 1-1 への進行、入力、セーブ系画面まで確認）。レンダリングの真因は sysroot 側の不足ライブラリ 2 本（`libpciaccess.so.0` / `libtinfo.so.6`）で、環境側修正のみで解決した
-- **音声もリアルタイムでクリーンに再生・録音できる**（PulseAudio 経由、音声供給比率 **1.000**＝無音ギャップ 0・アンダーラン 0 を複数回再現）。ただし条件付き：**VM が静かであること**。他ジョブと CPU を取り合うと供給比率は 0.83〜0.89 まで落ちる（実測）。測定・録画の前には [tools/quiet.sh](tools/quiet.sh) で管理下の定期ジョブを一時停止する「静音プロトコル」を適用すること。性能調査の全記録は [docs/PERFORMANCE.md](docs/PERFORMANCE.md)
+- **音声もリアルタイムでクリーンに再生・録音できる**（PulseAudio 経由、音声供給比率 **1.000**＝無音ギャップ 0・アンダーラン 0 を複数回再現。※これは専用プレフィックス＋専用 PA 構成でのサノバ実測）。ただし条件付き：**VM が静かであること**。他ジョブと CPU を取り合うと供給比率は 0.83〜0.89 まで落ちる（実測）。測定・録画の前には [tools/quiet.sh](tools/quiet.sh) で管理下の定期ジョブを一時停止する「静音プロトコル」を適用すること。性能調査の全記録は [docs/PERFORMANCE.md](docs/PERFORMANCE.md)。**注意：汎用ランチャー（`scripts/games/launch-game.sh`）経由のゲーム内音声はタイトルにより未解決**（下記「2026-11-16 修正ラウンド」参照）
 - ゲームの起動手順は [docs/GAME-RUNBOOK.md](docs/GAME-RUNBOOK.md) と `scripts/games/`（ゲームごとに新規プレフィックス、日本語ロケール、絶対パス `Z:\` で exe を起動）
 - 音声調査の記録：方法と失敗の経緯は [docs/AUDIO-INVESTIGATION.md](docs/AUDIO-INVESTIGATION.md)、実測の主記録（スナップショット）は [docs/AUDIO-RESULTS.md](docs/AUDIO-RESULTS.md)
-- タイトル別の互換性は [docs/GAME-COMPAT.md](docs/GAME-COMPAT.md)：『喫茶ステラと死神の蝶』は起動〜本編まで可、『サクラノ刻』は白画面で停止、『RE:D Cherish!』と『まじこい』は共通とみられるセグフォールトで未解決
-- 研究トラック（Level-3）：描画を 64bit ホスト側へ移すアーキテクチャ検討は [docs/ARCHITECTURE-OPTIMIZATION.md](docs/ARCHITECTURE-OPTIMIZATION.md)。現行構成は全段 32bit が TCG 翻訳越しに走る（二重 JIT 税が性能の本命容疑者）。第一候補は virgl/vtest（PoC 計画と棄却基準まで記載済み、未実施）
+- タイトル別の互換性は [docs/GAME-COMPAT.md](docs/GAME-COMPAT.md)。なお 2026-11-14 の互換性スイープで当時未解決だったタイトルはすべて解決済み：『サクラノ刻』＝ウィンドウマネージャ不在が原因（twm 常駐で解決）、『RE:D Cherish!』＝約 17 分・例外 0 で本編可、『まじこい』＝CPU モデル `max,-avx2` で解決。汎用レシピは **q32sup 系監督 + `max,-avx2` + twm 常駐 +（速度が必要な場合は）virgl**
+- 描画高速化：virgl/vtest は **実施済み**（ゲスト側 `GALLIUM_DRIVER=virpipe`）。サノバ本編で v2 スコア平均 **4.75 pts/s**（llvmpipe 比で大幅改善）、現行の最良構成。経緯と棄却した代替案（partial-Present 等）は [docs/ARCHITECTURE-OPTIMIZATION.md](docs/ARCHITECTURE-OPTIMIZATION.md) と性能記録参照
+
+**2026-11-16 修正ラウンド（外部レビュー対応）**：外部からの指摘・提案を受け、全項目を自前スタックで実測検証したうえで取り込んだ。詳細は [FIXLOG-20261116.md](FIXLOG-20261116.md)。要点（すべて本 VM での実測値）：
+
+- **速度（正直な現状）**：標準の QEMU 10.0.2 では『洞窟物語』のタイプライタ表示が **約 0.55〜0.60 文字/秒**（実時間の 3〜4 割程度）と遅い。**QEMU 7.2.22 では同条件で 5 文字/秒以上（約 9 倍）**、タイトル到達も約 60 秒（10.0.2 のコールド起動は wineboot＋Mono ダイアログ込みで約 9 分）。ただし **7.2.22 は Kirikiri 系タイトルを起動できない**（『RIDDLE JOKER』0/5、『サノバウィッチ』0/2、いずれも Wine 起動中に wineserver が落ちる。同条件で 10.0.2 は両方起動可）。したがって **デフォルトは 10.0.2 のまま**とし、7.2.22 は効果のあるタイトル向けの選択肢として .deb を `sysroot32/debs/` に同梱した（bookworm 版 qemu-user 7.2 + libcapstone4 + liburing2）
+- **q32sup を作り直した**：memfd ラッパー既定化＋fd 固定で ELF 判定と exec の TOCTOU を緩和、シェルクォート徹底、execveat の dirfd 解決、Q32_CPU の文字種検証、seccomp 失敗時のエラー表示。テストバッテリー全通過
+- **復元性の穴を塞いだ**：sysroot に不足していた i386 の EGL/GLX 関連 .deb 4 本を追加し、`scripts/verify.sh` の EGL プローブが実際に合否を判定するよう修正（従来は無言で素通り）。`setup.sh` は正常終了で exit 0・冪等に
+- **ランチャーのバグ修正**：相対パス起動（`cd /tmp`）の廃止、Wine Mono ダイアログで wineboot が固まる問題（DLL オーバーライドの export 順序）、音声ドライバ設定スクリプトの無言失敗（レジストリ見出しのタイムスタンプ付き書式に正規表現で対応＋再読検証）
+- **フォント（文字化け対策）**：IPA ゴシックから必要グリフ（10,250 字/書体）のサブセットを生成して導入する `scripts/games/setup-game-fonts.sh` を追加。notepad / コンソールで日本語表示をスクリーンショット検証済み（`screenshots/fonts-*`）
+- **音声の正直な状態**：ランチャーに PulseAudio 経路を配線（i386 PA ライブラリを `pa-libs/` に同梱、`AUDIO_ROUTE=pulse|alsa-pulse|alsa-null`）。winecfg のテスト音が PA 経由で鳴ることは実測確認済み。**しかし『洞窟物語』ではゲーム内音声がまだ鳴らない**（ゲーム内 DirectSound 初期化が失敗する。MMDevice の状態説は実験で棄却済み。調査継続中 — FIXLOG §§11/14）。「音声対応」とは書かない
+- **PRoot との比較（実測）**：getpid 20 万回で q32sup+QEMU **89 ms** に対し PRoot+QEMU **5,412 ms**（約 61 倍）。さらに PRoot 配下ではネストした exec が無言で消え、Wine は何も作らず終了する。代替監督にはならない
+- **CSMT**：『洞窟物語』タイプライタでは unset / 0 / 1 で差なし（23 文字/2 秒で同一）。ゲーム用プレフィックスには採用しない
+- **フットプリント**：展開後の作業ツリーは約 4.4 GB（うち調査用 WoW64 ツリー 1.6 GB）。中核（QEMU＋sysroot＋Wine＋プレフィックス）だけなら約 1.24 GB。起動はタイトルまで約 60 秒〜2 分（タイトル・条件による）
 
 **絶対ルール**：**ゲーム本体は一切改造しない**（EXE・XP3・アーカイブ・スクリプトに触らない）。修正はすべて環境側（QEMU / Wine / q32sup / Mesa / ライブラリ / 仮想デバイス）で行うこと。
 
@@ -81,7 +93,7 @@ WINEPREFIX=/path/to/new-prefix scripts/boot32.sh
 | `tools/` | 当時のビルド済みバイナリ（`q32sup.orig-x86_64-bin`、`noexec32.so`） |
 | `scripts/` | 復元・実行用スクリプト（下記）。`scripts/original/` に当時のスクリプト全世代を原典保存 |
 | `archives/` | バイナリアーカイブ群（下記）。20MB を超えるものは `.part-*` に分割して収録し、`setup.sh` が結合・検証・展開する |
-| `sysroot32/debs/` | sysroot の素材料である Ubuntu noble i386 向け .deb 42 本＋ qemu-user-static .deb |
+| `sysroot32/debs/` | sysroot の素材料である Ubuntu noble i386 向け .deb 42 本＋ qemu-user-static .deb ＋ QEMU 7.2.22（Debian bookworm）用 3 本（qemu-user / libcapstone4 / liburing2）＋ EGL/GLX 補完 4 本 |
 | `tests/` | 検証用テストプログラム（`hello32` 静的 ELF、`hello32.exe` / `hello64.exe`、execve 切り分け用 `exectest`、CPUID 測定用 `cpuid32`、各ソース） |
 | `logs/` | 構築・起動時の検証ログ一式（qemu セットアップ、wineboot、サノバ起動各回、Kirikiri コンソールログ等） |
 | `screenshots/` | 起動デスクトップ等の証跡スクリーンショット |
@@ -126,7 +138,7 @@ WINEPREFIX=/path/to/new-prefix scripts/boot32.sh
 - ✅ 32bit Wine 11.21：バージョン応答、wineboot 完走、プレフィックス生成（315MB）
 - ✅ wineserver / services / explorer：32bit のまま q32sup 配下で稼働、専用デスクトップ表示
 - ✅ 実ゲーム『サノバウィッチ』体験版（PE32 / Kirikiri Z）：エンジン起動、data.xp3 選択、TJS スクリプト約 30 本ロード（`logs/krkr.console.log.sanoba-q32sup`）
-- ⏳ 実ゲームのタイトル画面到達：未確認（黒画面のまま処理継続中にセッションが区切れた。その後も別セッションで継続試行中）
+- ⏳ 実ゲームのタイトル画面到達：未確認（黒画面のまま処理継続中にセッションが区切れた。その後も別セッションで継続試行中）→ **その後 2026-11-13 にタイトル到達・本編プレイ可能・音声 1.000 を確認。現在の状態は冒頭セクション参照**
 - ❌ ネイティブ 32bit 実行 / WoW64 経路：サンドボックス制約により不可（本環境がその回避策）
 
 速度の目安：VM の実効 CPU は共有 1.5 コア程度と小さく、TCG 翻訳越しの初回起動は重いです。プレフィックス作成はスナップショット配布で回避済み。競合する重いプロセスがあると極端に遅くなるため、検証時は他のエミュレーションを止めるのが有効です。

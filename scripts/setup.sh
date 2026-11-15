@@ -6,6 +6,10 @@
 #     --online         if an archive is missing, try scripts/fetch-online.sh first
 #     --system-packages  also install host tools (Xvfb, xdotool, scrot, fonts) via apt (needs sudo/root)
 #     --verify         run scripts/verify.sh at the end
+# Idempotent: already-extracted components (checked by sentinel files) are
+# skipped, so re-running after a partial or completed restore is safe.
+# Exit code: 0 on success (a previous version ended with the status of the
+# final `[ "$VERIFY" = 1 ] && ...` test and returned 1 on a successful run).
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
@@ -31,10 +35,15 @@ need() { # $1=base $2=human label
   if [ ! -f "archives/$1.tar.xz" ]; then echo "MISSING archive: archives/$1.tar.xz ($2)" >&2; exit 1; fi
   ( cd archives && sha256sum -c "$1.tar.xz.sha256" )
 }
-extract() { # $1=base $2=dest $3=strip-components(0/1 via tar transform dir name $4)
+extract() { # $1=base $2=dest ; extract $1.tar.xz into $2
   echo "extracting $1 -> $2"
   mkdir -p "$2"
-  tar --no-same-owner -xJf "archives/$1.tar.xz" -C "$2" ${4:+--strip-components=1}
+  tar --no-same-owner -xJf "archives/$1.tar.xz" -C "$2"
+}
+# extract_once $1=base $2=sentinel-file $3=dest
+extract_once() {
+  if [ -e "$2" ]; then echo "skip $1 ($2 already present)"; return 0; fi
+  extract "$1" "$3"
 }
 
 if [ "$SYSPKG" = 1 ]; then
@@ -53,15 +62,34 @@ need wineprefix32 "booted 32-bit Wine prefix"
 need wine-11.21-amd64-wow64 "Wine 11.21 WoW64 (investigation)"
 need wine-11.21-staging-amd64-wow64 "Wine 11.21 staging WoW64 (investigation)"
 
-extract qemu-10.0.2-i386 qemu10-tmp 0; mv qemu10-tmp/qemu10-pkg/usr qemu10/ 2>/dev/null || { mkdir -p qemu10; mv qemu10-tmp/qemu10-pkg/usr qemu10/; }; rm -rf qemu10-tmp
-extract qemu-8.2.2-i386-static qemu-tmp 0; mkdir -p qemu; mv qemu-tmp/qemu8-pkg/usr qemu/; rm -rf qemu-tmp
-extract sysroot32-root sysroot32 0
-extract wine-11.21-x86 wine32 0
-extract wineprefix32 . 0
+# QEMU 10.0.2 (extract via a temp dir, then move usr/ into place)
+if [ -e "qemu10/usr/bin/qemu-i386" ]; then
+  echo "skip qemu-10.0.2-i386 (qemu10/usr/bin/qemu-i386 already present)"
+else
+  extract qemu-10.0.2-i386 qemu10-tmp
+  mkdir -p qemu10
+  mv qemu10-tmp/qemu10-pkg/usr qemu10/
+  rm -rf qemu10-tmp
+fi
+# QEMU 8.2.2 static
+if [ -e "qemu/usr/bin/qemu-i386-static" ]; then
+  echo "skip qemu-8.2.2-i386-static (qemu/usr/bin/qemu-i386-static already present)"
+else
+  extract qemu-8.2.2-i386-static qemu-tmp
+  mkdir -p qemu
+  mv qemu-tmp/qemu8-pkg/usr qemu/
+  rm -rf qemu-tmp
+fi
+extract_once sysroot32-root sysroot32/root/lib/ld-linux.so.2 sysroot32
+extract_once wine-11.21-x86 wine32/wine-11.21-x86/bin/wine wine32
+extract_once wineprefix32 wineprefix32/drive_c/windows/system32/kernel32.dll .
 mkdir -p wow64
-cp archives/wine-11.21-amd64-wow64.tar.xz archives/wine-11.21-staging-amd64-wow64.tar.xz wow64/
-tar --no-same-owner -xJf wow64/wine-11.21-amd64-wow64.tar.xz -C wow64
-tar --no-same-owner -xJf wow64/wine-11.21-staging-amd64-wow64.tar.xz -C wow64
+if [ ! -e "wow64/wine-11.21-amd64-wow64/bin/wine" ]; then
+  tar --no-same-owner -xJf archives/wine-11.21-amd64-wow64.tar.xz -C wow64
+fi
+if [ ! -e "wow64/wine-11.21-staging-amd64-wow64/bin/wine" ]; then
+  tar --no-same-owner -xJf archives/wine-11.21-staging-amd64-wow64.tar.xz -C wow64
+fi
 
 echo "== building q32sup from source =="
 mkdir -p qemu10/wrap
@@ -75,4 +103,5 @@ echo "== path fixups =="
 # q32sup regenerates them with this machine's paths on first run.
 echo "SETUP_DONE root=$ROOT"
 echo "Next: scripts/verify.sh   (quick checks)   |   scripts/run32.sh <exe>   (run a 32-bit Windows exe)"
-[ "$VERIFY" = 1 ] && scripts/verify.sh
+if [ "$VERIFY" = 1 ]; then scripts/verify.sh; fi
+exit 0

@@ -7,9 +7,19 @@ _start:
     mov $msgA, %ecx
     mov $2, %edx
     int $0x80
+    # target path: argv[1] if given, else "tests/hello32" (repo-relative)
+    mov (%esp), %eax
+    cmp $2, %eax
+    jl use_default
+    mov 8(%esp), %ebx
+    jmp do_exec
+use_default:
+    mov $defpath, %ebx
+do_exec:
+    mov %ebx, av0
     # execve(path, argv, envp)
     mov $11, %eax
-    mov $path, %ebx
+    mov av0, %ebx
     mov $argv, %ecx
     mov $envp, %edx
     int $0x80
@@ -27,6 +37,7 @@ _start:
 .section .data
 msgA: .ascii "A\n"
 msgF: .ascii "F\n"
-path: .asciz "/home/hatch/workspace/vn-trials/wtest/hello32"
-argv: .long path, 0
+defpath: .asciz "tests/hello32"
+av0: .long 0
+argv: .long av0, 0
 envp: .long 0
