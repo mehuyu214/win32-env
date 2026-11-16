@@ -23,7 +23,10 @@ join_parts() { # $1 = base name in archives/ ; assembles $1.tar.xz from split pa
   if [ -f "archives/$base.tar.xz" ]; then return 0; fi
   if ls archives/"$base".tar.xz.part-* >/dev/null 2>&1; then
     echo "  joining archives/$base.tar.xz from parts"
-    cat archives/"$base".tar.xz.part-* > "archives/$base.tar.xz"
+    # Assemble via a temp file + rename: an interrupted join must not
+    # leave a truncated archive at the final path.
+    cat archives/"$base".tar.xz.part-* > "archives/$base.tar.xz.tmp"
+    mv "archives/$base.tar.xz.tmp" "archives/$base.tar.xz"
     return 0
   fi
   return 1
@@ -33,7 +36,13 @@ need() { # $1=base $2=human label
     if [ "$ONLINE" = 1 ]; then scripts/fetch-online.sh "$1" || true; fi
   fi
   if [ ! -f "archives/$1.tar.xz" ]; then echo "MISSING archive: archives/$1.tar.xz ($2)" >&2; exit 1; fi
-  ( cd archives && sha256sum -c "$1.tar.xz.sha256" )
+  if ! ( cd archives && sha256sum -c "$1.tar.xz.sha256" ); then
+    echo "ERROR: checksum mismatch for archives/$1.tar.xz" >&2
+    echo "  The archive is corrupt or incomplete. Delete it and re-run setup:" >&2
+    echo "    rm archives/$1.tar.xz" >&2
+    echo "  or fetch a fresh copy first: scripts/fetch-online.sh $1" >&2
+    exit 1
+  fi
 }
 extract() { # $1=base $2=dest ; extract $1.tar.xz into $2
   echo "extracting $1 -> $2"

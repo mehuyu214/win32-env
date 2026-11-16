@@ -3,7 +3,11 @@
 # actually RUN games (title rendering + sound), verified 2026-11-12 with the
 # Sanoba Witch trial (unmodified). Run AFTER scripts/setup.sh.
 # The extra .deb files live in sysroot32/debs/ (copied there 2026-11-12).
+# Failures are tracked in FAIL and reported via the exit code at the end —
+# a missing .deb, a failed extraction, an incomplete dependency closure or
+# an unrunnable EGL probe must not exit 0.
 set -u
+FAIL=0
 HERE="$(cd "$(dirname "$0")" && pwd)"
 . "$HERE/../env.sh"
 
@@ -20,8 +24,12 @@ libegl-mesa0_ libglx-mesa0_ libdrm2_ libxcb-glx0_
 mkdir -p "$SYSROOT32"
 for pat in $DEBS; do
   for d in "$VN32_ROOT"/sysroot32/debs/${pat}*.deb; do
-    [ -f "$d" ] || { echo "MISSING DEB: $pat"; continue; }
-    dpkg-deb -x "$d" "$SYSROOT32" && echo "extracted $(basename "$d")"
+    [ -f "$d" ] || { echo "MISSING DEB: $pat" >&2; FAIL=1; continue; }
+    if dpkg-deb -x "$d" "$SYSROOT32"; then
+      echo "extracted $(basename "$d")"
+    else
+      echo "EXTRACT FAILED: $(basename "$d")" >&2; FAIL=1
+    fi
   done
 done
 # sysroot uses merged-usr layout; make sure the links exist
@@ -37,25 +45,38 @@ ldconfig -r "$SYSROOT32" 2>/dev/null || true
 # "Cannot open shared library libasound_module_conf_pulse.so").
 mkdir -p "$SYSROOT32/usr/lib/i386-linux-gnu/alsa-lib"
 for m in pcm_pulse ctl_pulse conf_pulse; do
-  cp -n "$VN32_ROOT/pa-libs/usr/lib/i386-linux-gnu/alsa-lib/libasound_module_${m}.so" \
-    "$SYSROOT32/usr/lib/i386-linux-gnu/alsa-lib/" \
-    && echo "installed libasound_module_${m}.so"
+  if cp -n "$VN32_ROOT/pa-libs/usr/lib/i386-linux-gnu/alsa-lib/libasound_module_${m}.so" \
+    "$SYSROOT32/usr/lib/i386-linux-gnu/alsa-lib/"; then
+    echo "installed libasound_module_${m}.so"
+  else
+    echo "FAILED to install libasound_module_${m}.so" >&2; FAIL=1
+  fi
 done
 
 echo "=== dependency closure audit (every .so in the sysroot) ==="
 R="$SYSROOT32/usr/lib/i386-linux-gnu"
+# Known-benign misses: libsystemd.so.0 (needed by libdbus; Wine tolerates
+# its absence) and libpulsecommon-16.1.so (lives in $R/pulseaudio/, a
+# subdir the top-level scan cannot see — the loader finds it via the
+# libpulse RUNPATH). Any other missing library fails the audit.
+BENIGN=" libsystemd.so.0 libpulsecommon-16.1.so "
 MISS=0
 for so in "$R"/*.so.* "$R"/dri/*.so; do
   [ -f "$so" ] || continue
   for lib in $(readelf -d "$so" 2>/dev/null | grep NEEDED | sed 's/.*\[\(.*\)\]/\1/'); do
-    if [ ! -e "$R/$lib" ]; then echo "MISSING $lib (needed by $(basename "$so"))"; MISS=1; fi
+    if [ ! -e "$R/$lib" ]; then
+      case "$BENIGN" in
+        *" $lib "*) echo "missing (known-benign): $lib (needed by $(basename "$so"))";;
+        *) echo "MISSING $lib (needed by $(basename "$so"))"; MISS=1;;
+      esac
+    fi
   done
 done
-# Known-benign: libsystemd.so.0 (libdbus) may be reported; Wine tolerates it.
-# Also benign: libpulsecommon-16.1.so lives in $R/pulseaudio/ (a subdir), so
-# the top-level scan reports it missing — the loader finds it via the
-# libpulse RUNPATH; EGL probe passing is the real check.
-[ "$MISS" -eq 0 ] && echo "closure OK"
+if [ "$MISS" -eq 0 ]; then
+  echo "closure OK"
+else
+  echo "closure INCOMPLETE (see MISSING above)" >&2; FAIL=1
+fi
 
 echo "=== EGL probe (pure Linux, no Wine) ==="
 if [ -x "$SYSROOT32/usr/bin/python3.12" ]; then
@@ -73,5 +94,12 @@ if [ -x "$SYSROOT32/usr/bin/python3.12" ]; then
     exit 1
   fi
 else
-  echo "python3.12 not in sysroot; skip eglprobe"
+  echo "ERROR: python3.12 not in sysroot; the EGL probe cannot run, so this setup is unverified" >&2
+  FAIL=1
 fi
+
+if [ "$FAIL" != 0 ]; then
+  echo "setup-game-sysroot: FAILED (see errors above)" >&2
+  exit 1
+fi
+echo "setup-game-sysroot: OK"

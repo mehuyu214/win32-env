@@ -30,8 +30,9 @@ echo "[4] q32sup binary present and executable"
 
 if [ "$QUICK" = 0 ]; then
   echo "[5] q32sup end-to-end: wine cmd /c echo under supervision (slow; timeout 900s)"
-  OUT="$(timeout 900 "$Q32SUP" "$QEMU10" -cpu max -L "$SYSROOT32" "$WINE32_HOME/bin/wine" cmd /c "echo Q32SUP_OK" 2>/tmp/q32-verify.err)"
-  echo "$OUT" | grep -q "Q32SUP_OK" && ok "q32sup wine cmd: Q32SUP_OK" || { ng "q32sup wine cmd (see /tmp/q32-verify.err)"; }
+  ERRLOG="$(mktemp /tmp/q32-verify.XXXXXX.err)"
+  OUT="$(timeout 900 "$Q32SUP" "$QEMU10" -cpu max -L "$SYSROOT32" "$WINE32_HOME/bin/wine" cmd /c "echo Q32SUP_OK" 2>"$ERRLOG")"
+  echo "$OUT" | grep -q "Q32SUP_OK" && ok "q32sup wine cmd: Q32SUP_OK" || { ng "q32sup wine cmd (see $ERRLOG)"; }
 fi
 echo "verify: PASS=$PASS FAIL=$FAIL"
 [ "$FAIL" = 0 ]

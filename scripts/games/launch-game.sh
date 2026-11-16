@@ -42,7 +42,13 @@ export DISPLAY="${DISPLAY:-:99}"
 LOCALE_DIR="$VN32_ROOT/locales"
 if [ ! -f "$LOCALE_DIR/ja_JP.UTF-8/LC_CTYPE" ]; then
   mkdir -p "$LOCALE_DIR"
-  localedef -i ja_JP -c -f UTF-8 "$LOCALE_DIR/ja_JP.UTF-8"
+  # Fail loudly: a silent localedef failure leaves LOCPATH pointing at a
+  # locale that was never generated, and the game garbles Shift_JIS text.
+  if ! localedef -i ja_JP -c -f UTF-8 "$LOCALE_DIR/ja_JP.UTF-8" \
+     || [ ! -f "$LOCALE_DIR/ja_JP.UTF-8/LC_CTYPE" ]; then
+    echo "ERROR: localedef failed to generate ja_JP.UTF-8 in $LOCALE_DIR; aborting" >&2
+    exit 1
+  fi
 fi
 export LANG=ja_JP.UTF-8 LC_ALL=ja_JP.UTF-8 LOCPATH="$LOCALE_DIR"
 
@@ -95,6 +101,12 @@ if [ ! -f "$WINEPREFIX/drive_c/windows/system32/kernel32.dll" ]; then
   # wineboot's rundll32 child can linger under emulation; the prefix is
   # complete once system32 exists. Snapshot it for reuse:
   #   tar -cf wineprefix-games-pristine.tar -C "$VN32_ROOT" wineprefix-games
+  # Re-check: under `set -u` a failed wineboot does not abort this script,
+  # and exec'ing the game into a half-built prefix fails much less clearly.
+  if [ ! -f "$WINEPREFIX/drive_c/windows/system32/kernel32.dll" ]; then
+    echo "ERROR: wineboot did not complete: $WINEPREFIX/drive_c/windows/system32/kernel32.dll still missing (see $LOG)" >&2
+    exit 1
+  fi
 fi
 
 # For the pulse / alsa-pulse routes, make the prefix select the matching

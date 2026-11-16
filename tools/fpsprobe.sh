@@ -3,7 +3,11 @@
 # The distinct-fps denominator is the ACTUAL captured duration (frames / 30),
 # not a fixed constant — the old version divided by a hardcoded 12.0 even
 # when a different capture length was requested.
+# set -e + removing the output first: a failed capture must abort instead
+# of analysing a stale .mp4 left behind by a previous run.
+set -euo pipefail
 D=${1:-12}; OUT=${2:-/tmp/fpsprobe}; DISP="${DISPLAY:-:113}"
+rm -f "${OUT}.mp4"
 ffmpeg -nostdin -y -v error -f x11grab -video_size 1280x720 -framerate 30 -i "$DISP" -t "$D" -c:v libx264 -preset ultrafast "${OUT}.mp4" < /dev/null
 python3 - "$OUT" << 'PYEOF'
 import subprocess, hashlib, sys

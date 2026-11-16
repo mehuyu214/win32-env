@@ -272,13 +272,22 @@ static int read_str(pid_t pid, unsigned long addr, char *buf, size_t cap) {
     return 0;
 }
 
-/* write a string into tracee memory at addr (word-wise via POKEDATA) */
+/* write a string into tracee memory at addr (word-wise via POKEDATA).
+ * The final partial word is merged over the tracee's existing bytes
+ * (PEEKDATA) instead of zero-filling past the string's end. */
 static int write_str(pid_t pid, unsigned long addr, const char *s) {
     size_t len = strlen(s) + 1;
     size_t i = 0;
     while (i < len) {
-        long word = 0;
         size_t chunk = len - i < sizeof(long) ? len - i : sizeof(long);
+        long word;
+        if (chunk < sizeof(long)) {
+            errno = 0;
+            word = ptrace(PTRACE_PEEKDATA, pid, addr + i, 0);
+            if (word == -1 && errno != 0) return -1;
+        } else {
+            word = 0;
+        }
         memcpy(&word, s + i, chunk);
         if (ptrace(PTRACE_POKEDATA, pid, addr + i, word) < 0) return -1;
         i += chunk;
@@ -424,8 +433,12 @@ int main(int argc, char **argv) {
                                     if (write_str(pid, scratch, wrap) == 0) {
                                         if (nr == __NR_execve) regs.rdi = scratch;
                                         else { regs.rdi = (unsigned long)AT_FDCWD; regs.rsi = scratch; }
-                                        ptrace(PTRACE_SETREGS, pid, 0, &regs);
-                                        fprintf(stderr, "[q32sup] execve %s -> %s (pinned %s)\n", check, wrap, target);
+                                        if (ptrace(PTRACE_SETREGS, pid, 0, &regs) == 0) {
+                                            fprintf(stderr, "[q32sup] execve %s -> %s (pinned %s)\n", check, wrap, target);
+                                        } else {
+                                            fprintf(stderr, "[q32sup] execve %s: PTRACE_SETREGS failed (%s); rewrite NOT applied\n",
+                                                    check, strerror(errno));
+                                        }
                                     }
                                 }
                             }
