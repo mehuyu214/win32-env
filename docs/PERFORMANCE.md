@@ -153,7 +153,8 @@ principle (content is skipped/displaced, not merely padded).
 
 ```
 Xvfb :113 -screen 0 1280x720x24
-PulseAudio (workspace pa-bin) with pa/default.pa: null sink "game" 48 kHz f32le,
+PulseAudio (workspace pa-bin) with pa/default.pa.tmpl (expanded by scripts/start-pa.sh
+via sed to /tmp/win32env-pa-default.pa): null sink "game" 48 kHz f32le,
   unix socket pa/native + TCP 127.0.0.1:47130
 env: PULSE_LATENCY_MSEC=750 LP_NUM_THREADS=1 WINEDEBUG=-all
      PULSE_SERVER=tcp:127.0.0.1:47130 (or unix:…/pa/native — equivalent)

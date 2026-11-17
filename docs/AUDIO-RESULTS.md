@@ -26,7 +26,8 @@ pairs, 39/145 windows with a near-duplicate within 20 s, all at exactly +1.0 s o
 
 Fix built and verified (mission 1):
 - **PulseAudio 16.1 daemon, 100 % workspace-resident** in `pa-bin/` (extracted .debs from
-  the noble pool incl. universe; system apt was wedged). Custom config `pa/default.pa`:
+  the noble pool incl. universe; system apt was wedged). Custom config `pa/default.pa.tmpl`
+  (expanded by scripts/start-pa.sh via sed to /tmp/win32env-pa-default.pa):
   private unix socket + TCP 127.0.0.1:47130 (auth-anonymous), `module-null-sink
   sink_name=game rate=48000 format=float32le channels=2`. Clients use
   `PULSE_SERVER=tcp:127.0.0.1:47130`.
