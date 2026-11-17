@@ -93,7 +93,7 @@ WINEPREFIX=/path/to/new-prefix scripts/boot32.sh
 | `tools/` | 当時のビルド済みバイナリ（`q32sup.orig-x86_64-bin`、`noexec32.so`） |
 | `scripts/` | 復元・実行用スクリプト（下記）。`scripts/original/` に当時のスクリプト全世代を原典保存 |
 | `archives/` | バイナリアーカイブ群（下記）。20MB を超えるものは `.part-*` に分割して収録し、`setup.sh` が結合・検証・展開する |
-| `sysroot32/debs/` | sysroot の素材料である Ubuntu noble i386 向け .deb 42 本＋ qemu-user-static .deb ＋ QEMU 7.2.22（Debian bookworm）用 3 本（qemu-user / libcapstone4 / liburing2）＋ EGL/GLX 補完 4 本 |
+| `sysroot32/debs/` | sysroot の素材料である .deb 77 本・合計 103.8MB（99.0MiB）。内訳：Ubuntu noble i386 基底 41 本＋ゲーム用クロージャ 32 本（`scripts/games/setup-game-sysroot.sh` の DEBS。libasound2-data の _all 1 本を含む）＋ amd64 4 本（qemu-user-static と QEMU 7.2.22（Debian bookworm）用 qemu-user / libcapstone4 / liburing2） |
 | `tests/` | 検証用テストプログラム（`hello32` 静的 ELF、`hello32.exe` / `hello64.exe`、execve 切り分け用 `exectest`、CPUID 測定用 `cpuid32`、各ソース） |
 | `logs/` | 構築・起動時の検証ログ一式（qemu セットアップ、wineboot、サノバ起動各回、Kirikiri コンソールログ等） |
 | `screenshots/` | 起動デスクトップ等の証跡スクリーンショット |

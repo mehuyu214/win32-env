@@ -18,7 +18,7 @@
 32bitコードをホストCPUで「実行」するのではなく、**QEMU がユーザーモードで命令を翻訳（TCG）する**分にはサンドボックスは干渉しない。
 
 - `qemu-i386` 上で32bit Linuxテストバイナリが exit 0（実測 2026-11-12）
-- 32bitライブラリはシステムに multiarch で入れると依存が壊れた（ローカル `+hatch1` ビルドの libzstd1 等が co-install 不可）ため、**Ubuntu noble の i386 .deb 42本をダウンロードだけして `sysroot32/root/` に展開**し、`qemu -L sysroot32/root` で使う。これによりシステム状態に依存せず、ワークスペースごと持ち運べる
+- 32bitライブラリはシステムに multiarch で入れると依存が壊れた（ローカル `+hatch1` ビルドの libzstd1 等が co-install 不可）ため、**Ubuntu noble の i386 .deb（基底41本＋ゲーム用クロージャ32本）をダウンロードだけして `sysroot32/root/` に展開**し、`qemu -L sysroot32/root` で使う。これによりシステム状態に依存せず、ワークスペースごと持ち運べる
 - その上で **Kron4ek Wine 11.21 の x86（32bit）ビルド**が `wine-11.21` と応答（exit 0）
 
 ## 3. 残った問題：Wine の子プロセス spawn

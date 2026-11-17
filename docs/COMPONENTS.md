@@ -17,12 +17,17 @@
 | QEMU qemu-i386-static | 8.2.2（Ubuntu） | アーカイブ 1.2MB |
 | Wine x86 | 11.21（Kron4ek） | 展開 476MB、アーカイブ 56MB |
 | Wine amd64 WoW64 / staging | 11.21（Kron4ek） | 展開 各約 820MB、アーカイブ 94 / 96MB |
-| sysroot32 | Ubuntu noble i386 .deb 42本を展開 | 展開 176MB、アーカイブ 22MB、.deb 合計 22MB（+qemu-user-static 15MB） |
+| sysroot32 | Ubuntu noble .deb 73本を展開（i386 基底41本＋ゲーム用クロージャ32本） | 展開 176MB、アーカイブ 22MB、.deb 合計 76.2MB（72.7MiB、sysroot 用73本分。別途 amd64 4本 27.5MB が同居、うち qemu-user-static 15MB） |
 | wineprefix32 | Windows 10 相当、win32 | 起動済みスナップショット 展開約 315MB、アーカイブ 48MB／稼働版 340MB、アーカイブ 49MB |
 
-sysroot の .deb 一覧（42本、ファイル名＝パッケージ_バージョン_i386.deb）：
+sysroot の .deb 一覧（基底 41本、ファイル名＝パッケージ_バージョン_i386.deb）：
 libbrotli1, libbsd0, libbz2-1.0, libc6 (2.39-0ubuntu8.9), libdbus-1-3, libegl1, libexpat1, libfontconfig1, libfreetype6, libgbm1, libgcc-s1, libgl1, libgl1-mesa-dri, libglapi-mesa, libglvnd0, libglx0, libmd0, libpng16-16t64, libstdc++6, libuuid1, libx11-6, libxau6, libxcb1, libxcb-dri3-0, libxcb-present0, libxcb-sync1, libxcb-xfixes0, libxcomposite1, libxcursor1, libxdmcp6, libxext6, libxfixes3, libxi6, libxinerama1, libxkbcommon0, libxrandr2, libxrender1, libxshmfence1, libxxf86vm1, libzstd1, zlib1g
 （正確なバージョン文字列は `sysroot32/debs/` のファイル名そのもの）
+
+ゲーム用クロージャ 32本（`scripts/games/setup-game-sysroot.sh` の DEBS と同一。いずれも Ubuntu noble で、libasound2-data のみ _all、他は i386）：
+libasound2t64, libasound2-data, mesa-libgallium, libllvm20, libpciaccess0, libtinfo6, libx11-xcb1, libxcb-randr0, libxcb-shm0, libwayland-client0, libsensors5, libdrm-amdgpu1, libdrm-intel1, libelf1t64, libatomic1, libffi8, libedit2, libxml2, libicu74, liblzma5, python3.12-minimal, libpython3.12-minimal, libpython3.12-stdlib, python3.12, libsqlite3-0, libncursesw6, libreadline8t64, libssl3t64, libegl-mesa0, libglx-mesa0, libdrm2, libxcb-glx0
+
+このほか amd64 の .deb 4本（qemu-user-static、qemu-user、libcapstone4、liburing2）が `sysroot32/debs/` に同居する（sysroot には展開しない）。`sysroot32/debs/` の .deb は以上 77 本・合計 103.8MB（99.0MiB）。.deb を追加・削除したときは、setup-game-sysroot.sh の DEBS とこの一覧・本数・合計サイズを同時に更新すること。
 
 ## ホスト側（apt、VM 交換で消えるため setup.sh --system-packages で再導入）
 - Ubuntu 24.04.5 LTS、kernel 7.0.0-44（当時）
