@@ -18,6 +18,7 @@
 | Wine x86 | 11.21（Kron4ek） | 展開 476MB、アーカイブ 56MB |
 | Wine amd64 WoW64 / staging | 11.21（Kron4ek） | 展開 各約 820MB、アーカイブ 94 / 96MB |
 | sysroot32 | Ubuntu noble .deb 73本を展開（i386 基底41本＋ゲーム用クロージャ32本） | 展開 176MB、アーカイブ 22MB、.deb 合計 76.2MB（72.7MiB、sysroot 用73本分。別途 amd64 4本 27.5MB が同居、うち qemu-user-static 15MB） |
+| IPA Gothic 原本（フォント対策用） | 00303（fonts-ipafont-gothic 00303-21ubuntu1、IPA Font License） | fonts-src/ipag.ttf 6.2MB（git 管理外。`scripts/fetch-online.sh fonts-ipag` で .deb から抽出。setup-game-fonts.sh の既定取得元） |
 | wineprefix32 | Windows 10 相当、win32 | 起動済みスナップショット 展開約 315MB、アーカイブ 48MB／稼働版 340MB、アーカイブ 49MB |
 
 sysroot の .deb 一覧（基底 41本、ファイル名＝パッケージ_バージョン_i386.deb）：

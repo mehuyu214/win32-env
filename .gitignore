@@ -24,3 +24,4 @@ archives/wineprefix32-live-snapshot.tar.xz
 /.fontgen/
 /logs/pa.log
 /pa-bin/
+/fonts-src/

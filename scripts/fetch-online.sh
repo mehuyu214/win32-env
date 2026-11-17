@@ -61,6 +61,35 @@ fetch_pabin() {
   echo "  apt-get download pulseaudio pulseaudio-utils libpulse0 libpulse-mainloop-glib0 libspeexdsp1 libtdb1 liborc-0.4-0t64"
   echo "  for d in *.deb; do dpkg-deb -x \$d pa-bin/; done"
 }
+fetch_fonts_ipag() {
+  # IPA Gothic source for scripts/games/setup-game-fonts.sh. The package's
+  # ipag.ttf is byte-identical to the source FIXLOG section 16 used
+  # (verified 2026-11-17). Extracted into fonts-src/ (git-ignored), NOT
+  # archives/: the subset generator consumes the .ttf directly.
+  echo "IPA Gothic source font (fonts-ipafont-gothic, Ubuntu noble, IPA Font License) ..."
+  local url="https://archive.ubuntu.com/ubuntu/pool/universe/f/fonts-ipafont/fonts-ipafont-gothic_00303-21ubuntu1_all.deb"
+  local tmp="dl-tmp/fonts-ipafont-gothic.part" stage="dl-tmp/fonts-ipafont-stage"
+  rm -f "$tmp"; rm -rf "$stage"; mkdir -p "$stage" fonts-src
+  if ! curl -fL -o "$tmp" "$url"; then
+    rm -f "$tmp"; rm -rf "$stage"
+    echo "ERROR: download failed: $url" >&2
+    return 1
+  fi
+  if ! dpkg-deb -x "$tmp" "$stage"; then
+    rm -f "$tmp"; rm -rf "$stage"
+    echo "ERROR: could not extract fonts-ipafont-gothic .deb" >&2
+    return 1
+  fi
+  local src="$stage/usr/share/fonts/opentype/ipafont-gothic/ipag.ttf"
+  if [ ! -s "$src" ]; then
+    rm -f "$tmp"; rm -rf "$stage"
+    echo "ERROR: ipag.ttf not found inside fonts-ipafont-gothic .deb" >&2
+    return 1
+  fi
+  cp "$src" fonts-src/ipag.ttf.new && mv -f fonts-src/ipag.ttf.new fonts-src/ipag.ttf
+  rm -f "$tmp"; rm -rf "$stage"
+  echo "fetched fonts-src/ipag.ttf (IPA Gothic, from fonts-ipafont-gothic 00303-21ubuntu1)"
+}
 fetch_qemu10() {
   echo "QEMU 10.0.2 (Debian qemu-user, GPLv2) ..."
   echo "Original binaries: Debian 1:10.0.2+ds-2+deb13u1~bpo12+1 (bookworm-backports/trixie)."
@@ -86,7 +115,8 @@ for comp in "$@"; do
     qemu-10.0.2-i386) fetch_qemu10;;
     sysroot32-root) fetch_sysroot;;
     pa-bin) fetch_pabin;;
-    all) fetch_wine || FAILED=1; fetch_wow64 || FAILED=1; fetch_wow64_staging || FAILED=1; fetch_qemu10; fetch_sysroot; fetch_pabin;;
+    fonts-ipag) fetch_fonts_ipag || FAILED=1;;
+    all) fetch_wine || FAILED=1; fetch_wow64 || FAILED=1; fetch_wow64_staging || FAILED=1; fetch_fonts_ipag || FAILED=1; fetch_qemu10; fetch_sysroot; fetch_pabin;;
     *) echo "no online source for: $comp (use archives/ copy)" >&2; FAILED=1;;
   esac
 done

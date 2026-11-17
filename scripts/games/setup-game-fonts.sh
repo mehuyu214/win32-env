@@ -7,15 +7,28 @@
 # prefix), their Fonts registry entries removed, and FontSubstitutes are
 # pointed at IPAGothic. cp932 is then used for CJK code pages.
 # Fonts are generated with tools/make-subset-fonts.py from an IPA Gothic
-# source (default: the prefix snapshot's ipag.ttf, or fonts-ipafont's).
+# source, resolved in this order: the explicit [ipag.ttf] argument, the
+# prefix's own Fonts/ipag.ttf (re-runs), then fonts-src/ipag.ttf at the
+# repo root — fetch that one with: scripts/fetch-online.sh fonts-ipag
+# (extracts ipag.ttf from Ubuntu's fonts-ipafont-gothic package).
 # Idempotent; safe to re-run. The prefix's wineserver must be stopped.
 set -u
 HERE="$(cd "$(dirname "$0")" && pwd)"
 PREFIX="${1:?usage: setup-game-fonts.sh <wineprefix> [ipag.ttf]}"
-IPAG_SRC="${2:-$PREFIX/drive_c/windows/Fonts/ipag.ttf}"
-if [ ! -f "$IPAG_SRC" ]; then
-  echo "IPA Gothic source not found: $IPAG_SRC" >&2
-  echo "pass an ipag.ttf path (e.g. from the snapshot prefix's Fonts dir)" >&2
+SRC_ROOT="${VN32_ROOT:-$(cd "$HERE/../.." && pwd)}"
+if [ $# -ge 2 ]; then
+  IPAG_SRC="$2"
+elif [ -f "$PREFIX/drive_c/windows/Fonts/ipag.ttf" ]; then
+  IPAG_SRC="$PREFIX/drive_c/windows/Fonts/ipag.ttf"
+elif [ -f "$SRC_ROOT/fonts-src/ipag.ttf" ]; then
+  IPAG_SRC="$SRC_ROOT/fonts-src/ipag.ttf"
+else
+  IPAG_SRC=""
+fi
+if [ -z "$IPAG_SRC" ] || [ ! -f "$IPAG_SRC" ]; then
+  echo "IPA Gothic source not found${IPAG_SRC:+: $IPAG_SRC}" >&2
+  echo "pass an ipag.ttf path, or fetch the source first: scripts/fetch-online.sh fonts-ipag" >&2
+  echo "(extracts ipag.ttf from Ubuntu's fonts-ipafont-gothic package into fonts-src/)" >&2
   exit 1
 fi
 GEN="$PREFIX/../.fontgen"
@@ -41,7 +54,7 @@ out = []
 in_fonts = False
 have_system = have_ipag = False
 for ln in lines:
-    if ln.strip() == r'[Software\\Microsoft\\Windows NT\\CurrentVersion\\Fonts]':
+    if ln.strip().startswith(r'[Software\\Microsoft\\Windows NT\\CurrentVersion\\Fonts]'):
         in_fonts = True
         out.append(ln)
         continue

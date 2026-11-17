@@ -25,7 +25,7 @@
 - **q32sup を作り直した**：memfd ラッパー既定化＋fd 固定で ELF 判定と exec の TOCTOU を緩和、シェルクォート徹底、execveat の dirfd 解決、Q32_CPU の文字種検証、seccomp 失敗時のエラー表示。テストバッテリー全通過
 - **復元性の穴を塞いだ**：sysroot に不足していた i386 の EGL/GLX 関連 .deb 4 本を追加し、`scripts/verify.sh` の EGL プローブが実際に合否を判定するよう修正（従来は無言で素通り）。`setup.sh` は正常終了で exit 0・冪等に
 - **ランチャーのバグ修正**：相対パス起動（`cd /tmp`）の廃止、Wine Mono ダイアログで wineboot が固まる問題（DLL オーバーライドの export 順序）、音声ドライバ設定スクリプトの無言失敗（レジストリ見出しのタイムスタンプ付き書式に正規表現で対応＋再読検証）
-- **フォント（文字化け対策）**：IPA ゴシックから必要グリフ（10,250 字/書体）のサブセットを生成して導入する `scripts/games/setup-game-fonts.sh` を追加。notepad / コンソールで日本語表示をスクリーンショット検証済み（`screenshots/fonts-*`）
+- **フォント（文字化け対策）**：IPA ゴシックから必要グリフ（10,250 字/書体）のサブセットを生成して導入する `scripts/games/setup-game-fonts.sh` を追加。notepad / コンソールで日本語表示をスクリーンショット検証済み（`screenshots/fonts-*`）。原本 ipag.ttf はリポジトリに同梱していないため、`scripts/fetch-online.sh fonts-ipag` で Ubuntu の fonts-ipafont-gothic パッケージから取得する（`fonts-src/` に展開。当時の原本とバイト一致を検証済み）
 - **音声の正直な状態**：ランチャーに PulseAudio 経路を配線（i386 PA ライブラリを `pa-libs/` に同梱、`AUDIO_ROUTE=pulse|alsa-pulse|alsa-null`）。winecfg のテスト音が PA 経由で鳴ることは実測確認済み。**しかし『洞窟物語』ではゲーム内音声がまだ鳴らない**（ゲーム内 DirectSound 初期化が失敗する。MMDevice の状態説は実験で棄却済み。調査継続中 — FIXLOG §§11/14）。「音声対応」とは書かない
 - **PRoot との比較（実測）**：getpid 20 万回で q32sup+QEMU **89 ms** に対し PRoot+QEMU **5,412 ms**（約 61 倍）。さらに PRoot 配下ではネストした exec が無言で消え、Wine は何も作らず終了する。代替監督にはならない
 - **CSMT**：『洞窟物語』タイプライタでは unset / 0 / 1 で差なし（23 文字/2 秒で同一）。ゲーム用プレフィックスには採用しない
