@@ -103,7 +103,10 @@ if [ ! -f "$WINEPREFIX/drive_c/windows/system32/kernel32.dll" ]; then
   # stack (FIXLOG §31), which used to surface only later as a silent
   # audio-driver failure. Snapshot the result for reuse:
   #   tar -cf wineprefix-games-pristine.tar -C "$VN32_ROOT" wineprefix-games
-  if ! WINEPREFIX="$WINEPREFIX" WINEDEBUG=-all \
+  # The boot inherits the caller's WINEDEBUG (or -all when unset):
+  # a hardcoded -all here used to silence exactly the stage where a
+  # caller asking for e.g. +loaddll needs the trace (FIXLOG §33).
+  if ! WINEPREFIX="$WINEPREFIX" WINEDEBUG="${WINEDEBUG:--all}" \
        bash "$VN32_ROOT/scripts/boot32.sh" >> "$LOG" 2>&1; then
     echo "ERROR: fresh-prefix boot failed for $WINEPREFIX (see $LOG)" >&2
     exit 1
