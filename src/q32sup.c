@@ -388,6 +388,10 @@ int main(int argc, char **argv) {
     for (int i = 0; i < WRAP_SLOTS; i++) wrap_fds[i] = -1;
     if (argc < 2) { fprintf(stderr, "usage: q32sup <cmd> [args...]\n"); return 2; }
     pid_t child = fork();
+    if (child < 0) {
+        fprintf(stderr, "[q32sup] fork failed: %s\n", strerror(errno));
+        return 1;
+    }
     if (child == 0) {
         if (install_filter() < 0) _exit(127);
         ptrace(PTRACE_TRACEME, 0, 0, 0);
@@ -396,7 +400,10 @@ int main(int argc, char **argv) {
         _exit(127);
     }
     int status;
-    waitpid(child, &status, 0); /* initial SIGSTOP */
+    if (waitpid(child, &status, 0) < 0) { /* initial SIGSTOP */
+        fprintf(stderr, "[q32sup] waitpid failed: %s\n", strerror(errno));
+        return 1;
+    }
     if (WIFEXITED(status) || WIFSIGNALED(status)) {
         /* child died before its first stop (e.g. the seccomp filter
          * could not be installed): propagate its status instead of
