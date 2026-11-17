@@ -134,9 +134,10 @@ state before its numbers count. One variable per run. Bench harness:
 Q32_QEMU selectable per run), `win32-env/tools/fpsprobe.sh`.
 
 ### Track A — QEMU TCG
-- **`-tb-size` does not exist in Linux user-mode qemu**: both 8.2.2-static and 10.0.2
-  exit rc=1 with `qemu: unknown option 'tb-size'`. The rung is closed — no TB tuning
-  is available on this route.
+- **`-tb-size` does not exist in qemu-i386-static 8.2.2** (rc=1, `qemu: unknown
+  option 'tb-size'`), but it DOES exist in qemu-i386 10.0.2 (--help lists it;
+  `-tb-size 16` runs hello32 rc=0). The rung is closed on the 8.2.2 route only;
+  TB tuning on the 10.0.2 route was never measured.
 - Version micro-bench (guest python3.12 float loop, 10 guest-s, host wall ≈11.8 s each):
   qemu-i386-static **8.2.2: 90,000 ops/s**; qemu-i386 **10.0.2: 92,000 ops/s (+2 %)**.
   Note the process topology: the first Wine process runs under qemu10 (10.0.2) while

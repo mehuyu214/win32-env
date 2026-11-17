@@ -52,8 +52,10 @@ Earlier E-series (contended VM, same base family): E1 (750 ms buffer) 0.63,
 E2 (+1280×720, LP=1) 0.68, E3 (=E2, renice denied) 0.68, E4 (3000 ms buffer) 0.43,
 F1 (E4 + window unmapped) 0.44. Waveform at E3: metronome ON ≈0.90 s / OFF ≈0.30 s.
 Failed levers recorded: renice/nice (permission denied — no CAP_SYS_NICE in this
-sandbox), `-tb-size` (**does not exist in user-mode qemu**: both builds exit rc=1,
-"unknown option"), bigger buffers beyond 750 ms (worse), window unmapping (no effect).
+sandbox), `-tb-size` on the qemu-i386-static 8.2.2 route (rc=1, "unknown option" —
+but qemu-i386 10.0.2 DOES accept it: --help lists it and `-tb-size 16` runs
+hello32 rc=0, so the rung was wrongly closed for 10.0.2; its effect on 10.0.2 is
+unmeasured), bigger buffers beyond 750 ms (worse), window unmapping (no effect).
 
 ## Matrix (base config, one instance, sequential 60 s windows, start load 1.47)
 
