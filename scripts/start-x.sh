@@ -1,5 +1,6 @@
 #!/bin/bash
-# start-x.sh — start the virtual display used by the original environment (Xvfb :99, 1600x900x24).
+# start-x.sh — start the virtual display used by the original environment (Xvfb :99, 1600x900x24),
+# plus a resident twm window manager on it (generic recipe; see ensure_twm below).
 # Readiness is probed with whatever tool exists (xdpyinfo, else xdotool,
 # else the X socket) and RE-probed after spawning: "ready" is printed only
 # when the display actually answers. (The old version assumed xdpyinfo —
@@ -16,7 +17,20 @@ probe() {
     [ -S "/tmp/.X11-unix/X${DISP#:}" ]
   fi
 }
+# Generic recipe: a window manager must be resident on the game display —
+# on a bare Xvfb some titles render but ignore all input (Sakura no Toki).
+# twm is started detached; if one is already managing $DISP the new twm
+# exits immediately on its own (logged to /tmp/twm99.log), so this is
+# safe to run on every start-x invocation.
+ensure_twm() {
+  if ! command -v twm >/dev/null 2>&1; then
+    echo "WARNING: twm not found; no window manager on $DISP (some titles will ignore input)" >&2
+    return 0
+  fi
+  DISPLAY="$DISP" setsid twm >/tmp/twm99.log 2>&1 &
+}
 if probe; then
+  ensure_twm
   echo "DISPLAY=$DISP ready (already running)"
   exit 0
 fi
@@ -24,6 +38,7 @@ Xvfb "$DISP" -screen 0 1600x900x24 >/tmp/xvfb99.log 2>&1 &
 XVFB_PID=$!
 for _ in $(seq 1 50); do
   if probe; then
+    ensure_twm
     echo "DISPLAY=$DISP ready"
     exit 0
   fi

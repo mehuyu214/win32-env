@@ -22,7 +22,7 @@ OUT="$("$QEMU10" -L "$SYSROOT32" "$VN32_ROOT/tests/hello32" 2>/dev/null)"
 [ "$OUT" = "hello32-nativ" ] && ok "qemu hello32: ${OUT}e (test binary prints 13 of 15 bytes by design)" || ng "qemu hello32 (got: $OUT)"
 
 echo "[3] qemu-i386 + sysroot runs 32-bit Wine --version"
-OUT="$("$QEMU10" -cpu max -L "$SYSROOT32" "$WINE32_HOME/bin/wine" --version 2>/dev/null)"
+OUT="$("$QEMU10" -cpu "$Q32_CPU" -L "$SYSROOT32" "$WINE32_HOME/bin/wine" --version 2>/dev/null)"
 echo "$OUT" | grep -q "wine-11.21" && ok "wine version: $OUT" || ng "wine version (got: $OUT)"
 
 echo "[4] q32sup binary present and executable"
@@ -31,7 +31,7 @@ echo "[4] q32sup binary present and executable"
 if [ "$QUICK" = 0 ]; then
   echo "[5] q32sup end-to-end: wine cmd /c echo under supervision (slow; timeout 900s)"
   ERRLOG="$(mktemp /tmp/q32-verify.XXXXXX.err)"
-  OUT="$(timeout 900 "$Q32SUP" "$QEMU10" -cpu max -L "$SYSROOT32" "$WINE32_HOME/bin/wine" cmd /c "echo Q32SUP_OK" 2>"$ERRLOG")"
+  OUT="$(timeout 900 "$Q32SUP" "$QEMU10" -cpu "$Q32_CPU" -L "$SYSROOT32" "$WINE32_HOME/bin/wine" cmd /c "echo Q32SUP_OK" 2>"$ERRLOG")"
   echo "$OUT" | grep -q "Q32SUP_OK" && ok "q32sup wine cmd: Q32SUP_OK" || { ng "q32sup wine cmd (see $ERRLOG)"; }
 fi
 echo "verify: PASS=$PASS FAIL=$FAIL"

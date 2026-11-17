@@ -96,7 +96,7 @@ export WINEDLLOVERRIDES="${WINEDLLOVERRIDES:-mscoree=d}"
 export WINEPREFIX="${GAME_WINEPREFIX:-$VN32_ROOT/wineprefix-games}"
 if [ ! -f "$WINEPREFIX/drive_c/windows/system32/kernel32.dll" ]; then
   echo "booting fresh prefix: $WINEPREFIX"
-  WINEDEBUG=-all "$Q32SUP" "$QEMU10" -cpu max -L "$SYSROOT32" \
+  WINEDEBUG=-all "$Q32SUP" "$QEMU10" -cpu "$Q32_CPU" -L "$SYSROOT32" \
     "$WINE32_HOME/bin/wine" wineboot --init >> "$LOG" 2>&1
   # wineboot's rundll32 child can linger under emulation; the prefix is
   # complete once system32 exists. Snapshot it for reuse:
@@ -131,7 +131,8 @@ if [ "$AUDIO_ROUTE" = "pulse" ] || [ "$AUDIO_ROUTE" = "alsa-pulse" ]; then
 fi
 
 export WINEDEBUG="${WINEDEBUG:--all}"
-# 5) cd into the game's own directory, derived from the absolute Z:\ path.
+# 5) cd into the game's own directory, derived from the absolute Z:\ path
+#    (or the C:\ path, resolved through the prefix's drive_c).
 #    Several engines (GameMaker, Kirikiri-adjacent) read data files relative
 #    to the cwd; the old `cd /tmp` broke them (e.g. Warning Forever could
 #    not open data.bin). The launch itself stays on the absolute Z:\ path:
@@ -139,6 +140,7 @@ export WINEDEBUG="${WINEDEBUG:--all}"
 case "$EXE" in
   /*) GAMEDIR="$(dirname "$EXE")" ;;
   Z:*|z:*) _u="${EXE#Z:}"; _u="${_u#z:}"; _u="${_u//\\//}"; GAMEDIR="$(dirname "/$_u")" ;;
+  C:*|c:*) _u="${EXE#C:}"; _u="${_u#c:}"; _u="${_u//\\//}"; GAMEDIR="$(dirname "$WINEPREFIX/drive_c$_u")" ;;
   *) GAMEDIR="" ;;
 esac
 if [ -n "${GAMEDIR:-}" ] && [ -d "$GAMEDIR" ]; then
@@ -146,5 +148,5 @@ if [ -n "${GAMEDIR:-}" ] && [ -d "$GAMEDIR" ]; then
 else
   echo "WARNING: game dir '$GAMEDIR' not found; staying in $(pwd)" >&2
 fi
-exec "$Q32SUP" "$QEMU10" -cpu max -L "$SYSROOT32" \
+exec "$Q32SUP" "$QEMU10" -cpu "$Q32_CPU" -L "$SYSROOT32" \
   "$WINE32_HOME/bin/wine" "$EXE" >> "$LOG" 2>&1

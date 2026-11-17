@@ -114,9 +114,12 @@ static void resolve_paths(void) {
         if (!SYSROOT_buf[0]) snprintf(SYSROOT_buf, sizeof(SYSROOT_buf), "%s/sysroot32/root", exe);
         if (!WRAPDIR_buf[0]) snprintf(WRAPDIR_buf, sizeof(WRAPDIR_buf), "%s/qemu10/wrap", exe);
     }
-    if (!QEMU_buf[0]) snprintf(QEMU_buf, sizeof(QEMU_buf), "%s", "/home/hatch/workspace/vn-trials/qemu10/usr/bin/qemu-i386");
-    if (!SYSROOT_buf[0]) snprintf(SYSROOT_buf, sizeof(SYSROOT_buf), "%s", "/home/hatch/workspace/vn-trials/sysroot32/root");
-    if (!WRAPDIR_buf[0]) snprintf(WRAPDIR_buf, sizeof(WRAPDIR_buf), "%s", "/home/hatch/workspace/vn-trials/qemu10/wrap");
+    if (!QEMU_buf[0] || !SYSROOT_buf[0] || !WRAPDIR_buf[0]) {
+        fprintf(stderr, "[q32sup] cannot resolve QEMU/sysroot/wrapdir paths: "
+                        "run the binary from a win32-env tree, or set Q32_QEMU, "
+                        "Q32_SYSROOT and Q32_WRAPDIR explicitly\n");
+        exit(1);
+    }
     if (!CPU_buf[0]) snprintf(CPU_buf, sizeof(CPU_buf), "%s", "max");
     QEMU = QEMU_buf; SYSROOT = SYSROOT_buf; WRAPDIR = WRAPDIR_buf; CPU_MODEL = CPU_buf;
     mkdir(WRAPDIR, 0755);

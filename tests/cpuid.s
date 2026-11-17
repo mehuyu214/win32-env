@@ -20,7 +20,7 @@ _start:
     and $1, %eax
     call printdigit
     mov $str_ssse3, %ecx
-    call print6
+    call print7
     mov %edi, %eax
     shr $9, %eax
     and $1, %eax
@@ -42,10 +42,10 @@ print5:
     mov $5, %edx
     int $0x80
     ret
-print6:
+print7:
     mov $4, %eax
     mov $1, %ebx
-    mov $6, %edx
+    mov $7, %edx
     int $0x80
     ret
 printdigit:

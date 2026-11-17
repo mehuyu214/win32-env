@@ -82,7 +82,7 @@ echo "=== EGL probe (pure Linux, no Wine) ==="
 if [ -x "$SYSROOT32/usr/bin/python3.12" ]; then
   PROBE_OUT="$(DISPLAY="${DISPLAY:-:99}" \
   __EGL_VENDOR_LIBRARY_DIRS="$SYSROOT32/usr/share/glvnd/egl_vendor.d" \
-  "$QEMU10" -cpu max -L "$SYSROOT32" "$SYSROOT32/usr/bin/python3.12" \
+  "$QEMU10" -cpu "$Q32_CPU" -L "$SYSROOT32" "$SYSROOT32/usr/bin/python3.12" \
     "$VN32_ROOT/tools/eglprobe.py" 2>&1)"
   echo "$PROBE_OUT" | head -12
   # The probe itself exits 0 even when EGL is dead — check its output.
