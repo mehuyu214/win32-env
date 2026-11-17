@@ -111,6 +111,7 @@ WINEPREFIX=/path/to/new-prefix scripts/boot32.sh
 | `wineprefix32-live-snapshot.tar.xz` (49MB, 3 分割) | 同プレフィックスの 19:52 時点スナップショット（レジストリ最新版。稼働中取得のため参考用） | 手動展開 |
 | `wine-11.21-amd64-wow64.tar.xz` (94MB, 5 分割) | Kron4ek Wine 11.21 WoW64 ビルド（調査用。64bit 側・Geminism 等で使用） | `wow64/` |
 | `wine-11.21-staging-amd64-wow64.tar.xz` (96MB, 5 分割) | 同 staging 版（調査用） | `wow64/` |
+| `pa-bin.tar.xz` (1.4MB) | ホスト用 PulseAudio デーモン一式（Ubuntu noble amd64 の .deb から抽出。`scripts/start-pa.sh` が使う） | `pa-bin/` |
 
 各アーカイブの SHA-256 は `archives/SHA256SUMS.txt` と個別 `.sha256` にあり、`setup.sh` が展開前に自動検証します。オリジナルファイルのハッシュは `docs/SHA256SUMS.originals.txt` に記録しています。
 

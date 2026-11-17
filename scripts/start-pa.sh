@@ -15,19 +15,20 @@ mkdir -p "$(dirname "$LOG")" "$VN32_ROOT/pa"
 export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/tmp/pa-runtime}"
 mkdir -p "$XDG_RUNTIME_DIR"; chmod 700 "$XDG_RUNTIME_DIR"
 
-# Locate the daemon binary: repo-local extracted tree first, then the
-# perf line's vendored tree (same noble extraction, this VM), then the
-# system binary.
+# Locate the daemon binary: the repo-local extracted tree first (it is
+# part of the restore: archives/pa-bin.tar.xz, see scripts/setup.sh),
+# then the system binary. (An earlier version also fell back to another
+# project's tree via an absolute path; removed so a restored checkout
+# is self-contained.)
 find_pa() {
-  for b in "$VN32_ROOT/pa-bin/usr/bin/pulseaudio" \
-           "/home/hatch/workspace/win32-perf/pa-bin/usr/bin/pulseaudio"; do
+  for b in "$VN32_ROOT/pa-bin/usr/bin/pulseaudio"; do
     [ -x "$b" ] && { echo "$b"; return 0; }
   done
   command -v pulseaudio 2>/dev/null
 }
 PA_BIN="$(find_pa)"
 if [ -z "$PA_BIN" ]; then
-  echo "start-pa.sh: no pulseaudio binary found (install pulseaudio, or extract the noble amd64 debs into $VN32_ROOT/pa-bin)" >&2
+  echo "start-pa.sh: no pulseaudio binary found (run scripts/setup.sh to restore pa-bin/, or install pulseaudio)" >&2
   exit 1
 fi
 PA_ROOT="$(cd "$(dirname "$PA_BIN")/../.." && pwd)"

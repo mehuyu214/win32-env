@@ -50,9 +50,37 @@ extract() { # $1=base $2=dest ; extract $1.tar.xz into $2
   tar --no-same-owner -xJf "archives/$1.tar.xz" -C "$2"
 }
 # extract_once $1=base $2=sentinel-file $3=dest
+# Extraction is ATOMIC: the archive is unpacked into a staging dir and
+# the finished top-level entries are moved into $3 only after tar has
+# completed successfully. The old version extracted straight into $3,
+# so a mid-extraction failure (disk full, truncated archive) left a
+# partial tree behind — and because the sentinel (e.g. kernel32.dll)
+# can sit early in the archive, the next run then skipped the component
+# and reported the broken tree as restored. With the sentinel absent,
+# any pre-existing entry at the destination is by definition incomplete
+# and is replaced wholesale.
 extract_once() {
   if [ -e "$2" ]; then echo "skip $1 ($2 already present)"; return 0; fi
-  extract "$1" "$3"
+  local tmp="$3/.extract-tmp-$$"
+  rm -rf "$tmp"; mkdir -p "$tmp"
+  echo "extracting $1 -> $3 (via staging dir)"
+  if ! tar --no-same-owner -xJf "archives/$1.tar.xz" -C "$tmp"; then
+    echo "ERROR: extraction of archives/$1.tar.xz failed; partial tree discarded, $3 untouched" >&2
+    rm -rf "$tmp"
+    return 1
+  fi
+  local e name
+  for e in "$tmp"/* "$tmp"/.[!.]*; do
+    [ -e "$e" ] || continue
+    name="$(basename "$e")"
+    rm -rf "$3/$name"
+    mv "$e" "$3/"
+  done
+  rm -rf "$tmp"
+  if [ ! -e "$2" ]; then
+    echo "ERROR: $1 extracted but sentinel $2 is missing afterwards" >&2
+    return 1
+  fi
 }
 
 if [ "$SYSPKG" = 1 ]; then
@@ -70,6 +98,7 @@ need wine-11.21-x86 "Wine 11.21 x86 (Kron4ek)"
 need wineprefix32 "booted 32-bit Wine prefix"
 need wine-11.21-amd64-wow64 "Wine 11.21 WoW64 (investigation)"
 need wine-11.21-staging-amd64-wow64 "Wine 11.21 staging WoW64 (investigation)"
+need pa-bin "PulseAudio daemon tree (host, noble amd64)"
 
 # QEMU 10.0.2 (extract via a temp dir, then move usr/ into place)
 if [ -e "qemu10/usr/bin/qemu-i386" ]; then
@@ -92,13 +121,10 @@ fi
 extract_once sysroot32-root sysroot32/root/lib/ld-linux.so.2 sysroot32
 extract_once wine-11.21-x86 wine32/wine-11.21-x86/bin/wine wine32
 extract_once wineprefix32 wineprefix32/drive_c/windows/system32/kernel32.dll .
+extract_once pa-bin pa-bin/usr/bin/pulseaudio .
 mkdir -p wow64
-if [ ! -e "wow64/wine-11.21-amd64-wow64/bin/wine" ]; then
-  tar --no-same-owner -xJf archives/wine-11.21-amd64-wow64.tar.xz -C wow64
-fi
-if [ ! -e "wow64/wine-11.21-staging-amd64-wow64/bin/wine" ]; then
-  tar --no-same-owner -xJf archives/wine-11.21-staging-amd64-wow64.tar.xz -C wow64
-fi
+extract_once wine-11.21-amd64-wow64 wow64/wine-11.21-amd64-wow64/bin/wine wow64
+extract_once wine-11.21-staging-amd64-wow64 wow64/wine-11.21-staging-amd64-wow64/bin/wine wow64
 
 echo "== building q32sup from source =="
 mkdir -p qemu10/wrap

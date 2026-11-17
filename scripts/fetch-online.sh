@@ -38,17 +38,28 @@ fetch_wine() {
     wine-11.21-x86.tar.xz
 }
 fetch_wow64() {
+  # One asset per component: asking for the plain wow64 build must not
+  # also download the staging build (or fail because of it).
   echo "Wine 11.21 amd64 WoW64 (Kron4ek) ..."
-  local rc=0
   fetch_one \
     https://github.com/Kron4ek/Wine-Builds/releases/download/11.21/wine-11.21-amd64-wow64.tar.xz \
     wine-11.21-amd64-wow64.tar.xz \
-    || { echo "hint: the wow64 asset name may differ; check the 11.21 release page" >&2; rc=1; }
+    || { echo "hint: the wow64 asset name may differ; check the 11.21 release page" >&2; return 1; }
+}
+fetch_wow64_staging() {
+  echo "Wine 11.21 staging amd64 WoW64 (Kron4ek) ..."
   fetch_one \
     https://github.com/Kron4ek/Wine-Builds/releases/download/11.21/wine-11.21-staging-amd64-wow64.tar.xz \
     wine-11.21-staging-amd64-wow64.tar.xz \
-    || { echo "hint: the staging wow64 asset name may differ; check the 11.21 release page" >&2; rc=1; }
-  return "$rc"
+    || { echo "hint: the staging wow64 asset name may differ; check the 11.21 release page" >&2; return 1; }
+}
+fetch_pabin() {
+  echo "PulseAudio daemon tree (pa-bin/, Ubuntu 24.04 noble, amd64) ..."
+  echo "The verified tree is archived in archives/pa-bin.tar.xz; setup.sh restores it."
+  echo "To rebuild it from apt instead:"
+  echo "  dpkg --add-architecture amd64 && apt-get update   # (native amd64: no-op)"
+  echo "  apt-get download pulseaudio pulseaudio-utils libpulse0 libpulse-mainloop-glib0 libspeexdsp1 libtdb1 liborc-0.4-0t64"
+  echo "  for d in *.deb; do dpkg-deb -x \$d pa-bin/; done"
 }
 fetch_qemu10() {
   echo "QEMU 10.0.2 (Debian qemu-user, GPLv2) ..."
@@ -70,10 +81,12 @@ FAILED=0
 for comp in "$@"; do
   case "$comp" in
     wine-11.21-x86) fetch_wine || FAILED=1;;
-    wine-11.21-amd64-wow64|wine-11.21-staging-amd64-wow64) fetch_wow64 || FAILED=1;;
+    wine-11.21-amd64-wow64) fetch_wow64 || FAILED=1;;
+    wine-11.21-staging-amd64-wow64) fetch_wow64_staging || FAILED=1;;
     qemu-10.0.2-i386) fetch_qemu10;;
     sysroot32-root) fetch_sysroot;;
-    all) fetch_wine || FAILED=1; fetch_wow64 || FAILED=1; fetch_qemu10; fetch_sysroot;;
+    pa-bin) fetch_pabin;;
+    all) fetch_wine || FAILED=1; fetch_wow64 || FAILED=1; fetch_wow64_staging || FAILED=1; fetch_qemu10; fetch_sysroot; fetch_pabin;;
     *) echo "no online source for: $comp (use archives/ copy)" >&2; FAILED=1;;
   esac
 done

@@ -23,3 +23,4 @@ archives/wineprefix32-live-snapshot.tar.xz
 /wineprefix-games/
 /.fontgen/
 /logs/pa.log
+/pa-bin/
