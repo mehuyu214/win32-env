@@ -102,7 +102,18 @@ static void resolve_paths(void) {
     if ((env = getenv("Q32_QEMU"))) snprintf(QEMU_buf, sizeof(QEMU_buf), "%s", env);
     if ((env = getenv("Q32_SYSROOT"))) snprintf(SYSROOT_buf, sizeof(SYSROOT_buf), "%s", env);
     if ((env = getenv("Q32_WRAPDIR"))) snprintf(WRAPDIR_buf, sizeof(WRAPDIR_buf), "%s", env);
-    if ((env = getenv("Q32_CPU"))) snprintf(CPU_buf, sizeof(CPU_buf), "%s", env);
+    if ((env = getenv("Q32_CPU"))) {
+        /* A value longer than CPU_buf is silently cut by snprintf
+         * below, and main() then validates only the truncated copy —
+         * an invalid character past the cut would pass unchecked.
+         * Reject over-long values loudly instead of truncating. */
+        if (strlen(env) >= sizeof(CPU_buf)) {
+            fprintf(stderr, "[q32sup] Q32_CPU value too long (%zu chars, max %zu)\n",
+                    strlen(env), sizeof(CPU_buf) - 1);
+            exit(1);
+        }
+        snprintf(CPU_buf, sizeof(CPU_buf), "%s", env);
+    }
     if ((env = getenv("Q32_WRAPPER")) && strcmp(env, "disk") == 0) WRAP_MEMFD = 0;
     if (n > 0) {
         exe[n] = 0;
