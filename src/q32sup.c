@@ -122,7 +122,17 @@ static void resolve_paths(void) {
     }
     if (!CPU_buf[0]) snprintf(CPU_buf, sizeof(CPU_buf), "%s", "max");
     QEMU = QEMU_buf; SYSROOT = SYSROOT_buf; WRAPDIR = WRAPDIR_buf; CPU_MODEL = CPU_buf;
-    mkdir(WRAPDIR, 0755);
+    if (mkdir(WRAPDIR, 0755) != 0 && errno != EEXIST) {
+        if (!WRAP_MEMFD) {
+            fprintf(stderr, "[q32sup] cannot create WRAPDIR %s: %s; "
+                            "disk wrapper mode needs a writable wrapper directory\n",
+                    WRAPDIR, strerror(errno));
+            exit(1);
+        }
+        fprintf(stderr, "[q32sup] warning: cannot create WRAPDIR %s: %s; "
+                        "memfd wrappers unaffected, disk fallback unavailable\n",
+                WRAPDIR, strerror(errno));
+    }
 }
 
 /* --- shell quoting: wrap in double quotes, backslash-escape " \ $ ` --- */
@@ -442,7 +452,13 @@ int main(int argc, char **argv) {
                                             fprintf(stderr, "[q32sup] execve %s: PTRACE_SETREGS failed (%s); rewrite NOT applied\n",
                                                     check, strerror(errno));
                                         }
+                                    } else {
+                                        fprintf(stderr, "[q32sup] execve %s: writing the wrapper path failed; rewrite NOT applied\n",
+                                                check);
                                     }
+                                } else {
+                                    fprintf(stderr, "[q32sup] execve %s: wrapper creation failed; rewrite NOT applied\n",
+                                            check);
                                 }
                             }
                         }
