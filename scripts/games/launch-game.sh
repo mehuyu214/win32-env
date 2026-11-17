@@ -96,13 +96,20 @@ export WINEDLLOVERRIDES="${WINEDLLOVERRIDES:-mscoree=d}"
 export WINEPREFIX="${GAME_WINEPREFIX:-$VN32_ROOT/wineprefix-games}"
 if [ ! -f "$WINEPREFIX/drive_c/windows/system32/kernel32.dll" ]; then
   echo "booting fresh prefix: $WINEPREFIX"
-  WINEDEBUG=-all "$Q32SUP" "$QEMU10" -cpu "$Q32_CPU" -L "$SYSROOT32" \
-    "$WINE32_HOME/bin/wine" wineboot --init >> "$LOG" 2>&1
-  # wineboot's rundll32 child can linger under emulation; the prefix is
-  # complete once system32 exists. Snapshot it for reuse:
+  # The boot goes through scripts/boot32.sh: it runs the wineserver
+  # under its own supervisor and verifies that user.reg / system.reg /
+  # userdef.reg were actually written. A wineboot run whose wineserver
+  # is a child of the same q32sup leaves the registry unwritten on this
+  # stack (FIXLOG §31), which used to surface only later as a silent
+  # audio-driver failure. Snapshot the result for reuse:
   #   tar -cf wineprefix-games-pristine.tar -C "$VN32_ROOT" wineprefix-games
-  # Re-check: under `set -u` a failed wineboot does not abort this script,
-  # and exec'ing the game into a half-built prefix fails much less clearly.
+  if ! WINEPREFIX="$WINEPREFIX" WINEDEBUG=-all \
+       bash "$VN32_ROOT/scripts/boot32.sh" >> "$LOG" 2>&1; then
+    echo "ERROR: fresh-prefix boot failed for $WINEPREFIX (see $LOG)" >&2
+    exit 1
+  fi
+  # Re-check: exec'ing the game into a half-built prefix fails much
+  # less clearly than stopping here.
   if [ ! -f "$WINEPREFIX/drive_c/windows/system32/kernel32.dll" ]; then
     echo "ERROR: wineboot did not complete: $WINEPREFIX/drive_c/windows/system32/kernel32.dll still missing (see $LOG)" >&2
     exit 1
@@ -122,10 +129,14 @@ fi
 if [ "$AUDIO_ROUTE" = "pulse" ] || [ "$AUDIO_ROUTE" = "alsa-pulse" ]; then
   if [ "$AUDIO_ROUTE" = "pulse" ]; then _drv=pulse; else _drv=alsa; fi
   if [ -x "$VN32_ROOT/tools/set-audio-driver.py" ]; then
+    # Fatal, not a warning: on an audible route, launching with the
+    # driver unset means a silently wrong audio device — the exact
+    # failure the fresh-prefix registry bug used to hide (FIXLOG §31).
     "$VN32_ROOT/tools/set-audio-driver.py" "$WINEPREFIX" "$_drv" >> "$LOG" 2>&1 \
-      || echo "WARNING: set-audio-driver.py failed; audio driver not set" | tee -a "$LOG" >&2
+      || { echo "ERROR: set-audio-driver.py failed; audio driver not set (see $LOG)" | tee -a "$LOG" >&2; exit 1; }
   else
-    echo "WARNING: $VN32_ROOT/tools/set-audio-driver.py missing; audio driver NOT set (game will be silent)" | tee -a "$LOG" >&2
+    echo "ERROR: $VN32_ROOT/tools/set-audio-driver.py missing; audio driver NOT set (see $LOG)" | tee -a "$LOG" >&2
+    exit 1
   fi
   export LD_LIBRARY_PATH="$VN32_ROOT/pa-libs/usr/lib/i386-linux-gnu:$VN32_ROOT/pa-libs/usr/lib/i386-linux-gnu/pulseaudio${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 fi

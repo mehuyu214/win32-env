@@ -189,6 +189,19 @@ static const char *pin_target(const char *path) {
     return pin_paths[slot];
 }
 
+/* 1 when path names a readable 32-bit x86 ELF. Used only to decide
+ * whether a pin failure deserves a diagnostic; the pass-through of
+ * scripts and 64-bit ELFs stays silent. */
+static int is_elf32_path(const char *path) {
+    int fd = open(path, O_RDONLY);
+    if (fd < 0) return 0;
+    unsigned char h[20];
+    ssize_t n = pread(fd, h, 20, 0);
+    close(fd);
+    return (n == 20 && h[0] == 0x7f && h[1] == 'E' && h[2] == 'L' && h[3] == 'F'
+            && h[4] == 1 && h[18] == 3 && h[19] == 0);
+}
+
 /* --- memfd wrapper -----------------------------------------------------
  * The wrapper script lives only in a memfd owned by the supervisor;
  * there is no on-disk file to swap.  Fds are kept in a ring (the
@@ -316,11 +329,12 @@ static const char *resolve_check_path(pid_t pid, long nr, const struct user_regs
     if (path[0] == '/') return path;
     char base[PATH_MAX];
     const char *basep = NULL;
+    int from_dirfd = 0;
     if (nr == __NR_execveat && (long)regs->rdi != AT_FDCWD) {
         char linkp[64];
         snprintf(linkp, sizeof(linkp), "/proc/%d/fd/%lld", pid, (long long)regs->rdi);
         ssize_t bl = readlink(linkp, base, sizeof(base) - 1);
-        if (bl > 0) { base[bl] = 0; basep = base; }
+        if (bl > 0) { base[bl] = 0; basep = base; from_dirfd = 1; }
     }
     if (!basep) {
         char linkp[64];
@@ -331,6 +345,17 @@ static const char *resolve_check_path(pid_t pid, long nr, const struct user_regs
     if (!basep) return NULL;
     /* a dirfd may resolve to "dir (deleted)" etc.; require a clean absolute dir */
     if (basep[0] != '/') return NULL;
+    if (path[0] == '\0') {
+        /* execveat(dirfd, "", ..., AT_EMPTY_PATH): the target IS the file
+         * the dirfd refers to, so the dirfd's own resolved path is the
+         * check target, unsuffixed. Without a dirfd resolution or without
+         * the flag, an empty path is the kernel's ENOENT to report —
+         * pass through untouched. */
+        if (!from_dirfd || !(regs->r8 & AT_EMPTY_PATH)) return NULL;
+        int n = snprintf(out, cap, "%s", basep);
+        if (n < 0 || (size_t)n >= cap) return NULL;
+        return out;
+    }
     int n = snprintf(out, cap, "%s/%s", basep, path);
     if (n < 0 || (size_t)n >= cap) return NULL;
     return out;
@@ -452,7 +477,7 @@ int main(int argc, char **argv) {
                                     unsigned long scratch = (regs.rsp - 128 - len - 16) & ~15UL;
                                     if (write_str(pid, scratch, wrap) == 0) {
                                         if (nr == __NR_execve) regs.rdi = scratch;
-                                        else { regs.rdi = (unsigned long)AT_FDCWD; regs.rsi = scratch; }
+                                        else { regs.rdi = (unsigned long)AT_FDCWD; regs.rsi = scratch; regs.r8 &= ~(unsigned long)AT_EMPTY_PATH; /* the wrapper is passed by pathname */ }
                                         if (ptrace(PTRACE_SETREGS, pid, 0, &regs) == 0) {
                                             fprintf(stderr, "[q32sup] execve %s -> %s (pinned %s)\n", check, wrap, target);
                                         } else {
@@ -467,6 +492,9 @@ int main(int argc, char **argv) {
                                     fprintf(stderr, "[q32sup] execve %s: wrapper creation failed; rewrite NOT applied\n",
                                             check);
                                 }
+                            } else if (is_elf32_path(check)) {
+                                fprintf(stderr, "[q32sup] execve %s: 32-bit ELF target could not be pinned; rewrite NOT applied\n",
+                                        check);
                             }
                         }
                     }
