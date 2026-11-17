@@ -83,6 +83,13 @@
  *     first stop (it went on to report success).  -> install_filter()
  *     reports which prctl() failed, with errno, on stderr, and the
  *     parent propagates an already-exited child's status.
+ * 12. the wrapper was a #!/bin/sh script, so dash rebuilt the
+ *     environment on every exec: it added PWD, reordered variables,
+ *     and collapsed duplicate keys last-wins.  -> the wrapper is
+ *     now a parameter block (shebang + four NUL-terminated strings)
+ *     read by the q32wrap helper (src/q32wrap.c), which execs qemu
+ *     with the original argv and environ untouched; shell_quote()
+ *     is gone with the shell. (FIXLOG §34.)
  *
  * Path resolution (portability patch, unchanged): paths are resolved
  * relative to the q32sup executable location:
@@ -90,10 +97,12 @@
  *   <ROOT>/qemu10/usr/bin/qemu-i386 (QEMU)
  *   <ROOT>/sysroot32/root           (SYSROOT)
  *   <ROOT>/qemu10/wrap              (WRAPDIR, disk mode only)
- * Overrides: Q32_QEMU, Q32_SYSROOT, Q32_WRAPDIR, Q32_CPU, Q32_WRAPPER.
+ * Overrides: Q32_QEMU, Q32_SYSROOT, Q32_WRAPDIR, Q32_CPU, Q32_WRAPPER,
+ * Q32_HELPER.
  */
 static char QEMU_buf[PATH_MAX], SYSROOT_buf[PATH_MAX], WRAPDIR_buf[PATH_MAX], CPU_buf[128];
-static const char *QEMU, *SYSROOT, *WRAPDIR, *CPU_MODEL;
+static char HELPER_buf[PATH_MAX];
+static const char *QEMU, *SYSROOT, *WRAPDIR, *CPU_MODEL, *HELPER;
 static int WRAP_MEMFD = 1;
 static void resolve_paths(void) {
     char exe[PATH_MAX];
@@ -115,6 +124,7 @@ static void resolve_paths(void) {
         snprintf(CPU_buf, sizeof(CPU_buf), "%s", env);
     }
     if ((env = getenv("Q32_WRAPPER")) && strcmp(env, "disk") == 0) WRAP_MEMFD = 0;
+    if ((env = getenv("Q32_HELPER"))) snprintf(HELPER_buf, sizeof(HELPER_buf), "%s", env);
     if (n > 0) {
         exe[n] = 0;
         char *slash = strrchr(exe, '/');
@@ -124,6 +134,7 @@ static void resolve_paths(void) {
         if (!QEMU_buf[0]) snprintf(QEMU_buf, sizeof(QEMU_buf), "%s/qemu10/usr/bin/qemu-i386", exe);
         if (!SYSROOT_buf[0]) snprintf(SYSROOT_buf, sizeof(SYSROOT_buf), "%s/sysroot32/root", exe);
         if (!WRAPDIR_buf[0]) snprintf(WRAPDIR_buf, sizeof(WRAPDIR_buf), "%s/qemu10/wrap", exe);
+        if (!HELPER_buf[0]) snprintf(HELPER_buf, sizeof(HELPER_buf), "%s/qemu10/q32wrap", exe);
     }
     if (!QEMU_buf[0] || !SYSROOT_buf[0] || !WRAPDIR_buf[0]) {
         fprintf(stderr, "[q32sup] cannot resolve QEMU/sysroot/wrapdir paths: "
@@ -133,6 +144,16 @@ static void resolve_paths(void) {
     }
     if (!CPU_buf[0]) snprintf(CPU_buf, sizeof(CPU_buf), "%s", "max");
     QEMU = QEMU_buf; SYSROOT = SYSROOT_buf; WRAPDIR = WRAPDIR_buf; CPU_MODEL = CPU_buf;
+    HELPER = HELPER_buf;
+    /* The wrapper is useless without its helper: every rewritten exec
+     * would fail at the shebang. Fail loudly at startup, not on the
+     * first 32-bit exec deep inside a game. */
+    if (!HELPER_buf[0] || access(HELPER, X_OK) != 0) {
+        fprintf(stderr, "[q32sup] q32wrap helper not executable at %s: %s; "
+                        "run `make q32sup` to build it (or set Q32_HELPER)\n",
+                HELPER_buf[0] ? HELPER : "(unset)", strerror(errno));
+        exit(1);
+    }
     if (mkdir(WRAPDIR, 0755) != 0 && errno != EEXIST) {
         if (!WRAP_MEMFD) {
             fprintf(stderr, "[q32sup] cannot create WRAPDIR %s: %s; "
@@ -146,33 +167,31 @@ static void resolve_paths(void) {
     }
 }
 
-/* --- shell quoting: wrap in double quotes, backslash-escape " \ $ ` --- */
-static int shell_quote(const char *in, char *out, size_t cap) {
-    size_t o = 0;
-    if (cap < 3) return -1;
-    out[o++] = '"';
-    for (const char *p = in; *p; p++) {
-        if (*p == '"' || *p == '\\' || *p == '$' || *p == '`') {
-            if (o + 2 >= cap - 1) return -1;
-            out[o++] = '\\';
-        }
-        if (o + 1 >= cap - 1) return -1;
-        out[o++] = *p;
-    }
-    out[o++] = '"';
-    out[o] = 0;
-    return 0;
-}
-
+/* --- wrapper body ------------------------------------------------------
+ * The wrapper is NOT a shell script. Its first line is a shebang
+ * naming the q32wrap helper; the rest is a parameter block of four
+ * NUL-terminated strings: qemu path, CPU model, sysroot path,
+ * target path. The helper execs qemu with the caller's original argv
+ * and environ untouched, so the guest sees envp byte-for-byte.
+ * A #!/bin/sh wrapper could not do that: dash rebuilds the
+ * environment at startup (adds PWD, reorders variables, collapses
+ * duplicate keys last-wins). No quoting is needed here: fields are
+ * NUL-delimited, so any byte except NUL survives them intact.
+ * The body is binary (it contains NULs): callers must use the
+ * returned length, never strlen(), and the disk-mode hash must be
+ * computed over the length (fnv1a_n), not to the first NUL. */
 static int build_body(char *out, size_t cap, const char *target) {
-    static char qq[PATH_MAX * 2 + 8], qs[PATH_MAX * 2 + 8], qt[PATH_MAX * 2 + 8], qc[512];
-    if (shell_quote(QEMU, qq, sizeof(qq)) < 0) return -1;
-    if (shell_quote(SYSROOT, qs, sizeof(qs)) < 0) return -1;
-    if (shell_quote(target, qt, sizeof(qt)) < 0) return -1;
-    if (shell_quote(CPU_MODEL, qc, sizeof(qc)) < 0) return -1;
-    int n = snprintf(out, cap, "#!/bin/sh\nexec %s -cpu %s -L %s %s \"$@\"\n", qq, qc, qs, qt);
+    int n = snprintf(out, cap, "#!%s\n", HELPER);
     if (n < 0 || (size_t)n >= cap) return -1;
-    return n;
+    size_t o = (size_t)n;
+    const char *fields[4] = { QEMU, CPU_MODEL, SYSROOT, target };
+    for (int i = 0; i < 4; i++) {
+        size_t len = strlen(fields[i]) + 1;
+        if (o + len > cap) return -1;
+        memcpy(out + o, fields[i], len);
+        o += len;
+    }
+    return (int)o;
 }
 
 /* --- target fd pinning -------------------------------------------------
@@ -236,9 +255,11 @@ static const char *make_memfd_wrapper(const char *target) {
 }
 
 /* --- on-disk wrapper (Q32_WRAPPER=disk; also the memfd fallback) ------ */
-static unsigned long long fnv1a(const char *s) {
+/* Length-aware: the wrapper body is binary (NULs inside), so hashing
+ * to the first NUL would cover only the shebang line. */
+static unsigned long long fnv1a_n(const char *s, size_t len) {
     unsigned long long h = 1469598103934665603ULL;
-    for (; *s; s++) { h ^= (unsigned char)*s; h *= 1099511628211ULL; }
+    for (size_t i = 0; i < len; i++) { h ^= (unsigned char)s[i]; h *= 1099511628211ULL; }
     return h;
 }
 static int file_content_equals(const char *path, const char *body, size_t blen) {
@@ -254,12 +275,12 @@ static const char *make_disk_wrapper(const char *target) {
     static char wpath[PATH_MAX];
     int bl = build_body(body, sizeof(body), target);
     if (bl < 0) return NULL;
-    unsigned long long h = fnv1a(body);
+    unsigned long long h = fnv1a_n(body, (size_t)bl);
     for (int attempt = 0; attempt < 17; attempt++) {
         if (attempt == 0)
-            snprintf(wpath, sizeof(wpath), "%s/w%llx.sh", WRAPDIR, h);
+            snprintf(wpath, sizeof(wpath), "%s/w%llx", WRAPDIR, h);
         else if (attempt < 16)
-            snprintf(wpath, sizeof(wpath), "%s/w%llx-%d.sh", WRAPDIR, h, attempt);
+            snprintf(wpath, sizeof(wpath), "%s/w%llx-%d", WRAPDIR, h, attempt);
         else {
             /* last resort: a unique name via mkstemp */
             snprintf(wpath, sizeof(wpath), "%s/w%llx-XXXXXX", WRAPDIR, h);
@@ -400,8 +421,9 @@ static int install_filter(void) {
 
 /* QEMU cpu model strings ("max", "max,-avx2", "qemu32,+sse4.2", ...)
  * use only this charset; reject anything else up front instead of
- * letting a bad value fail opaquely inside QEMU (or, defence in
- * depth behind shell_quote(), break out of the wrapper). */
+ * letting a bad value fail opaquely inside QEMU. Defence in depth:
+ * the value reaches qemu's -cpu argument via the q32wrap helper,
+ * so a bad value must be caught here, not deep inside QEMU. */
 static int cpu_model_valid(const char *s) {
     if (!*s) return 0;
     for (const char *p = s; *p; p++) {

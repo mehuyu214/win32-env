@@ -4,6 +4,7 @@
 /qemu10/wrap/*
 !/qemu10/wrap/.keep
 /qemu10/q32sup
+/qemu10/q32wrap
 /sysroot32/root/
 /wine32/wine-11.21-x86/
 /wineprefix32/
